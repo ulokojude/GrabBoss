@@ -2,6 +2,17 @@
   include("../config/db.php");
   $message = "";
   $mess = "";
+  // $diss = "";
+  // function button(){
+  //   global $diss;
+  //   if ($_POST['password'] && $_POST['confirm_password'] && $_POST['full_name'] && $_POST['email']) {
+  //     return $diss = 'disabled';
+  //   } else {
+  //     return $diss = '';
+  //   }
+  //   button();
+  // }
+
   if($_SERVER["REQUEST_METHOD"] == "POST") {
     $full_name = trim($_POST["full_name"]);
     $email = trim($_POST["email"]);
@@ -11,9 +22,11 @@
     if(empty($full_name) || empty($email) || empty($password)) {
       $message = "All fields are required";
       $mess = "alert-danger";
+      $diss = "disabled";
     } elseif($password !== $confirm) {
       $message = "Password do not match";
       $mess = "alert-danger";
+      $diss = "disabled";
     } else {
       // Hash Password
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -37,8 +50,6 @@
           $message = "Registration failed";
           $mess = "alert-danger";
         }
-
-
       }
     }
   }
@@ -55,37 +66,46 @@
     <title>Register | GrabBoss</title>
   </head>
   <body class="bg-light">
-    <div class="container vh-100 d-flex align-items-center justify-content-center">
-      <div class="card p-4 shadow w-100" style="max-width: 450px;">
+    <div class="container min-vh-100 d-flex py-4 align-items-center justify-content-center">
+      <div class="card p-4 shadow w-100 w-md-75 w-lg-50">
         <h4 class="text-center mb-3">GrabBoss</h4>
         <p class="text-center text-muted mb-4">
           Register to start shopping
         </p>
         <div class="alert <?php echo $mess; ?>"><?php echo $message; ?></div>
         <form action="register.php" method="POST">
-          <div class="mb-3">
-            <label for="" class="form-label">Full Nmae</label>
-            <input type="text" class="form-control" placeholder="Jogh Doe" name="full_name" required>
+          <div class="row">
+            <div class="col-12 col-md-6 p-2">
+              <div class="mb-3">
+                <label for="" class="form-label">Full Nmae</label>
+                <input type="text" class="form-control" placeholder="Jogh Doe" name="full_name" required>
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Email</label>
+                <input type="email" class="form-control" placeholder="example@host.com" name="email" required>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 p-2">
+              <div class="mb-3">
+                <label for="" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="create password" required>
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Confirm Password</label>
+                <input type="password" name="confirm_password" class="form-control" placeholder="re-type password" required>
+              </div>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="" class="form-label">Email</label>
-            <input type="email" class="form-control" placeholder="example@host.com" name="email" required>
-          </div>
-          <div class="mb-3">
-            <label for="" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" placeholder="create password" required>
-          </div>
-          <div class="mb-3">
-            <label for="" class="form-label">Confirm Password</label>
-            <input type="password" name="confirm_password" class="form-control" placeholder="re-type password" required>
-          </div>
-          <div class="mb-3">
-            <button class="btn btn-success w-100 mt-2">Register</button>
-          </div>
-          <div class="text-center mt-3">
-            <span>Already have an account?</span>
-            <a href="login.html" >Login</a>
-          </div>
+           <div class="">
+              <div class="mb-3">
+                <button class="btn btn-success mt-2 w-100 <?php // button(); ?>">Register</button>
+              </div>
+              <div class="mt-3 text-center">
+                <span>Already have an account?</span>
+                <a href="login.php" >Login</a>
+              </div>
+            </div>
         </form>
       </div>
     </div>
