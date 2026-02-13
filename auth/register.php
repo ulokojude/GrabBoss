@@ -3,15 +3,6 @@
   $message = "";
   $mess = "";
   // $diss = "";
-  // function button(){
-  //   global $diss;
-  //   if ($_POST['password'] && $_POST['confirm_password'] && $_POST['full_name'] && $_POST['email']) {
-  //     return $diss = 'disabled';
-  //   } else {
-  //     return $diss = '';
-  //   }
-  //   button();
-  // }
 
   if($_SERVER["REQUEST_METHOD"] == "POST") {
     $full_name = trim($_POST["full_name"]);
@@ -60,9 +51,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
-      crossorigin="anonymous">
+    <link rel="stylesheet" href="httpS://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <title>Register | GrabBoss</title>
   </head>
   <body class="bg-light">
@@ -78,28 +67,30 @@
             <div class="col-12 col-md-6 p-2">
               <div class="mb-3">
                 <label for="" class="form-label">Full Nmae</label>
-                <input type="text" class="form-control" placeholder="Jogh Doe" name="full_name" required>
+                <input type="text" class="form-control" placeholder="Jogh Doe" name="full_name" id="full_name" required>
               </div>
               <div class="mb-3">
                 <label for="" class="form-label">Email</label>
-                <input type="email" class="form-control" placeholder="example@host.com" name="email" required>
+                <input type="email" class="form-control" placeholder="example@host.com" name="email" id="email" required>
               </div>
             </div>
 
             <div class="col-12 col-md-6 p-2">
               <div class="mb-3">
                 <label for="" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" placeholder="create password" required>
+                <input type="password" name="password" id="password" class="form-control" placeholder="create password" required>
               </div>
               <div class="mb-3">
                 <label for="" class="form-label">Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control" placeholder="re-type password" required>
+                <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="re-type password" required>
               </div>
             </div>
           </div>
            <div class="">
               <div class="mb-3">
-                <button class="btn btn-success mt-2 w-100 <?php // button(); ?>">Register</button>
+                <button class="btn btn-success mt-2 w-100 <?php // button(); ?>" id="registerBtn" disabled>
+                  Register
+                </button>
               </div>
               <div class="mt-3 text-center">
                 <span>Already have an account?</span>
@@ -109,5 +100,28 @@
         </form>
       </div>
     </div>
+    <script>
+      const fullName = document.getElementById('full_name');
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+      const confirmPassword = document.getElementById('confirm_password');
+      const registerBtn = document.getElementById('registerBtn');
+
+      function checkFields() {
+        if (fullName.value.trim() !== "" &&
+            email.value.trim() !== "" &&
+            password.value.trim() !== "" &&
+            confirmPassword.value.trim() !== "") {
+          registerBtn.disabled = false;
+        } else {
+          registerBtn.disabled = true;
+        }
+      }
+
+      fullName.addEventListener('input', checkFields);
+      email.addEventListener('input', checkFields);
+      password.addEventListener('input', checkFields);
+      confirmPassword.addEventListener('input', checkFields);
+    </script>
   </body>
 </html>
