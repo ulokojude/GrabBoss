@@ -20,6 +20,7 @@
     $filteredProducts = $products;
   }
 ?>
+
 <!DOCTYPE html>
 <html>
   <head>

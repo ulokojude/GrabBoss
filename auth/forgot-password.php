@@ -6,6 +6,20 @@
   //   exit();
   // }
 
+  require 'vendor/autoload.php';
+  use PHPMailer\PHPMailer\PHPMailer;
+
+  include '../config/db.php';
+
+  if(isset($_POST['email'])) {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+
+    // check if user exists
+    $check = mysqli_query
+  }
+
+
+
   $message = "";
   $mess = "";
 
