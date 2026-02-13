@@ -29,18 +29,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"> -->
+    <link rel="icon" type="image/png" href="images/icons/fab.png">
     <link rel="stylesheet" href="styles/general.css">
     <link rel="stylesheet" href="styles/grabboss-header.css">
     <link rel="stylesheet" href="styles/grabboss.css">
     <!-- <link rel="stylesheet" href="/styles/trans.css"> -->
+    <style>
+      .search-bar {
+        
+      }
+    </style>
   </head>
   <body>
     <div class="amazon-header">
       <div class="amazon-header-left-section">
         <a href="index.php" class="header-link">
-          <h4 style="color: white; ">
+          <!-- <h4 style="color: white; ">
             <u>GrabBoss</u>
-          </h4>
+          </h4> -->
+          <img src="images/icons/logo.png" width="50px" alt="web logo">
         </a>
       </div>
       <div class="amazon-header-middle-section">
