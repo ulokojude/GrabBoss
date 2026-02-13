@@ -58,7 +58,7 @@
           <span class="returns-text">Returns</span>
           <span class="orders-text">& Orders</span>
         </a>
-        <a class="cart-link header-link" href="checkout.html">
+        <a class="cart-link header-link" href="cart.php">
           <img class="cart-icon" src="images/icons/cart-icon.png">
           <div class="cart-quantity js-cart-quantity">0</div>
           <div class="cart-text">Cart</div>
