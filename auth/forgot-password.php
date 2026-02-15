@@ -22,7 +22,7 @@
       $mail->isSMTP();
       $mail->Host = "smtp.gmail.com";
       $mail->SMTPAuth = true;
-      $mail->Username = "myadonaitech@gmail.com";
+      $mail->Username = "myadonaitech@gm**.com";
       $mail->Password = "your-app-password";
       $mail->SMTPSecure = 'tls';
       $mail->Port = 587;

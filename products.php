@@ -35,11 +35,6 @@
     <link rel="stylesheet" href="styles/grabboss-header.css">
     <link rel="stylesheet" href="styles/grabboss.css">
     <!-- <link rel="stylesheet" href="/styles/trans.css"> -->
-    <style>
-      .search-bar {
-        
-      }
-    </style>
   </head>
   <body>
     <div class="amazon-header">
@@ -96,7 +91,7 @@
               $<?php echo number_format($product['priceCents'] / 100, 2); ?>
             </div>
             <label>
-              <a href="product-details.php">View details</a>
+              <a href="product-details.php#<?php echo $product['id']; ?>">View details</a>
             </label>
             <div class="product-spacer"></div>
             <div class="added-to-cart">

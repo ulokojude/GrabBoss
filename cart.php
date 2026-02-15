@@ -37,7 +37,6 @@
 
     <section class="container py-5">
       <h3 class="mb-4">Shopping Cart</h3>
-
       <div class="table-responsive">
         <table class="table align-middle">
           <thead class="table-light">
@@ -48,6 +47,11 @@
             <th></th>
           </thead>
           <tbody>
+            <!-- 
+              Regerate the TRs below .
+              If it's reaches a number,
+              implement pagination. 
+            -->
             <tr>
               <td>
                 <div class="d-flex align-items-center">
@@ -64,6 +68,7 @@
                 <button class="btn btn-sm btn-danger">Remove</button>
               </td>
             </tr>
+
           </tbody>
         </table>
       </div>
@@ -92,5 +97,6 @@
         </div>
       </div>
     </div>
+    <?php include "includes/footer.php"; ?>
   </body>
 </html>

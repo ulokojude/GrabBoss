@@ -1,9 +1,28 @@
 <?php 
   session_start();
   require("config/db.php");
+  require("data/products.php");
   if(!isset($_SESSION["user_id"])) {
     header("Location: auth/login.php");
     exit();
+  }
+
+  $id = $_GET['id'] ?? null;
+
+  function pro_name($products, $id) {
+    foreach ($products as $product) {
+      if ($product['id'] == $id) {
+        return $product['name'];
+      }
+    }
+    return null;
+  }
+  
+  if ($id) {
+    $name = pro_name($products, $id);
+    echo $name;
+  } else {
+    echo "invalid name";
   }
 ?>
 
@@ -16,6 +35,9 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
       crossorigin="anonymous">
     <title>Product Details | GrabBoss</title>
+    <style>
+      
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -41,7 +63,9 @@
           <img class="product-image" src="/bathroom-rug.jpg" width="90px">
         </div>
         <div class="col-12 col-md-6">
-          <h3>Smartphone</h3>
+          <h3>
+            <?php echo pro_name($products, $id); ?>
+          </h3>
           <p class="text\">Category: Electronics</p>
           <h4 class="text-success">N120,000</h4>
           <p class="mt-3">
@@ -52,7 +76,7 @@
           </p>
           <div class="mb-3">
             <label for="form-label">Quantity</label>
-            <input type="number" class="form-control w-50" value="1" min="1">
+            <input type="number" class="form-control w-50" value="<?php echo "344"; ?>" min="1" readonly>
           </div>
           <button class="btn btn-primary me-2">Add to Cart</button>
           <a href="products.php" class="btn btn-outline-secondary">

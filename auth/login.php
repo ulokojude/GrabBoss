@@ -45,9 +45,12 @@
   </head>
   <body class="bg-light">
     <div class="container vh-100 d-flex align-items-center justify-content-center">
-      <div class="card p-4 shadow w-100" style="max-width: 400px;">
-        <h4 class="text-center mb-3">GrabBoss</h4>  
+      <div class="card p-4 shadow-lg w-100" style="max-width: 400px;"> 
+        <!-- <div>
+          <img src="../images/icons/logo.png" style="border-radius: 4px;" width="25%">
+        </div> -->
         <form action="" method="post">
+          <h4 class="text-center mb-3">GrabBoss</h4> 
           <div class="alert <?php echo $mess; ?>"><?php echo $message ?></div>
           <div class="mb-3">
             <label for="" class="form-label">Email</label>
