@@ -21,7 +21,7 @@
       $mess = "alert-success";
       $hashed = password_hash($password, PASSWORD_DEFAULT);
       $email = $_SESSION["reset_email"];
-
+      
       //$query = "UPDATE users SET password = '$hashed' WHERE email= '$email'";
       $stmt = $conn->prepare("UPDATE users SET password = ? WHERE email = ?");
       $stmt->bind_param("ss", $hashed, $$email);
@@ -64,7 +64,9 @@
             <input type="password" name="confirm" class="form-control" placeholder="re-type password" required>
           </div>
           <div class="mb-3">
-            <button class="btn btn-success w-100">Reset Password</button>
+            <button class="btn btn-success w-100">
+              Reset Password
+            </button>
           </div>
         </form>
       </div>

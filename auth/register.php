@@ -22,16 +22,13 @@
       // Hash Password
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
       //chech if email exists
-      
       // change to PDO
       $chech = mysqli_query($conn, "SELECT id FROM users WHERE email='$email'");
-
       if (mysqli_num_rows($chech) > 0) {
         $message = "Email already registered";
         $mess = "alert-danger";
       } else {
         // Insert users
-        
         // change to PDO
         $sql = "INSERT INTO users (full_name, email, password) VALUES ('$full_name', '$email', '$hashed_password')";
         if (mysqli_query($conn, $sql)) {
@@ -74,7 +71,7 @@
                 <input type="email" class="form-control" placeholder="example@host.com" name="email" id="email" required>
               </div>
             </div>
-
+            
             <div class="col-12 col-md-6 p-2">
               <div class="mb-3">
                 <label for="" class="form-label">Password</label>

@@ -8,7 +8,6 @@
   }
 
   $id = $_GET['id'] ?? null;
-
   function pro_name($products, $id) {
     foreach ($products as $product) {
       if ($product['id'] == $id) {
@@ -18,12 +17,12 @@
     return null;
   }
   
-  if ($id) {
-    $name = pro_name($products, $id);
-    echo $name;
-  } else {
-    echo "invalid name";
-  }
+  // if ($id) {
+  //   $name = pro_name($products, $id);
+  //   echo $name;
+  // } else {
+  //   echo "invalid name";
+  // }
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +35,9 @@
       crossorigin="anonymous">
     <title>Product Details | GrabBoss</title>
     <style>
-      
+      .form-control:active {
+        
+      }
     </style>
   </head>
   <body>
@@ -46,12 +47,11 @@
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
           <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="nav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a href="products.php" class="nav-link text-light">Products</a></li>
+            <li class="nav-item"><a href="products.php" class="nav-link">Products</a></li>
             <li class="nav-item"><a href="cart.php" class="nav-link">Cart</a></li>
-            <li class="nav-item"><a href="index.php" class="nav-link">Profile</a></li>
+            <li class="nav-item"><a href="index.php" class="nav-link text-light">Profile</a></li>
           </ul>
         </div>
       </div>
@@ -64,15 +64,15 @@
         </div>
         <div class="col-12 col-md-6">
           <h3>
-            <?php echo pro_name($products, $id); ?>
+            (product name)
+            <?php 
+              //echo pro_name($products, $id); 
+            ?>
           </h3>
-          <p class="text\">Category: Electronics</p>
-          <h4 class="text-success">N120,000</h4>
+          <p class="text">Category: (Category)</p>
+          <h4 class="text-success">N(Products prics)</h4>
           <p class="mt-3">
-            This smartphone features a high-resolution
-            display, fast proccessor, long-lasting
-            battery, and modern design suitable for
-            daily use
+            (Product details)
           </p>
           <div class="mb-3">
             <label for="form-label">Quantity</label>
@@ -85,5 +85,6 @@
         </div>
       </div>
     </section>
+    <?php /*include("includes/footer.php");*/ ?>
   </body>
 </html>

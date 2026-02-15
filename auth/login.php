@@ -7,7 +7,6 @@
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
-
     if (empty($email) || empty($password)) {
       $message = "All fields are required";
       $mess = "alert-danger";
@@ -42,6 +41,12 @@
     <link rel="stylesheet" href="../styles/generals.css" >
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <title>Login | GrabBoss</title>
+    <style>
+      /* .form-control:active {
+        box-shadow: none;
+        border-style: none;
+      } */
+    </style>
   </head>
   <body class="bg-light">
     <div class="container vh-100 d-flex align-items-center justify-content-center">
@@ -51,7 +56,9 @@
         </div> -->
         <form action="" method="post">
           <h4 class="text-center mb-3">GrabBoss</h4> 
-          <div class="alert <?php echo $mess; ?>"><?php echo $message ?></div>
+          <div class="alert <?php echo $mess; ?>">
+            <?php echo $message ?>
+          </div>
           <div class="mb-3">
             <label for="" class="form-label">Email</label>
             <input type="email" placeholder="jude@email.com" name="email" class="form-control" required>
@@ -69,7 +76,9 @@
             </a>
             <p>
               Don't have an account? 
-              <a href="register.php" class="text-decoration-none">Create account.</a>
+              <a href="register.php" class="text-decoration-none">
+                Create account.
+              </a>
             </p>
           </div>
         </form>
