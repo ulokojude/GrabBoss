@@ -4,7 +4,7 @@
     exit();
   }
   $message = "Orders submited successfully";
-  header("Refresh: 3; URL=products.php");
+  header("Refresh: 3; URL=../products.php");
 ?>
 
 <!DOCTYPE html>
