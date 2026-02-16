@@ -37,6 +37,12 @@
       </div>
     </nav>
 
-
+    <div class="container mt-5">
+      <h3>Welcome, <?php echo htmlspecialchars($_SESSION["user_name"]); ?>!</h3>
+      <h3>Your Email adress is <?php echo htmlspecialchars($_SESSION["email"]); ?></h3>
+      <a href="auth/forgot-password.php">
+        <button class="btn btn-primary">Change Paaword</button>
+      </a>
+    </div>
   </body>
 </html>

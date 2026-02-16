@@ -1,6 +1,6 @@
 <?php
   if(!isset($_SESSION["user_id"])) {
-    header("Location: auth/login.php");
+    header("Location: ../auth/login.php");
     exit();
   }
 
@@ -32,7 +32,7 @@
             <input type="tel" name="rec_phone" placeholder="" class="form-control" required>
           </div>
           <div class="mb-3">
-            <button class="btn btn-primary w-100">Submmit</button>
+            <button class="btn btn-primary btn-sm w-100">Submmit</button>
           </div>
         </form>
       </div>
