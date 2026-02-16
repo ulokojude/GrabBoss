@@ -24,7 +24,7 @@
       
       //$query = "UPDATE users SET password = '$hashed' WHERE email= '$email'";
       $stmt = $conn->prepare("UPDATE users SET password = ? WHERE email = ?");
-      $stmt->bind_param("ss", $hashed, $$email);
+      $stmt->bind_param("ss", $hashed, $email);
       if($stmt->execute()) {
         unset($_SESSION['reset_email']);
         header("Location: login.php");
@@ -46,6 +46,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../styles/generals.css">
     <title>Reset Password | GrabBoss</title>
+    <style>
+      .form-control:focus {
+        box-shadow: none;
+      }
+    </style>
   </head>
   <body class="bg-light">
     <div class="container vh-100 d-flex align-items-center justify-content-center">
@@ -54,7 +59,7 @@
         <div class="alert <?php echo $mess; ?>">
           <?php echo $message ?>
         </div>
-        <form action="" method="post">
+        <form action="" method="POST">
           <div class="mb-3">
             <label for="" class="form-label">New password</label>
             <input type="password" name="password" class="form-control" placeholder="new password" required>

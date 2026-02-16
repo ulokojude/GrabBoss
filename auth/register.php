@@ -18,7 +18,12 @@
       $message = "Password do not match";
       $mess = "alert-danger";
       $diss = "disabled";
-    } else {
+    } 
+    // elseif (strlen($password) <= 5) {
+    //   $message = "Your password leght must be greater than 5 caracters";
+    //   $mess = "alert-danger";
+    // } 
+    else {
       // Hash Password
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
       //chech if email exists
@@ -50,6 +55,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="httpS://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <title>Register | GrabBoss</title>
+    <style>
+      .form-control:focus {
+        box-shadow: none;
+      }
+    </style>
   </head>
   <body class="bg-light">
     <div class="container min-vh-100 d-flex py-4 align-items-center justify-content-center">

@@ -3,8 +3,6 @@
     header("Location: auth/login.php");
     exit();
   }
-  $message = "Orders submited successfully";
-  header("Refresh: 3; URL=products.php");
 ?>
 
 <!DOCTYPE html>
@@ -18,10 +16,11 @@
   <body>
     <div class="container vh-100 d-flex align-items-center justify-content-center">
       <div class="card p-4 shadow-lg w-100" style="max-width: 400px;">
-        <h4 class="text-center text-success">
-          <?php echo $message; ?> &checkmark;
-          <p>Redirecting...</p>
-        </h4>
+        <form action="b4_chk.php" method="POST">
+          <div class="mb-3">
+            <input type="text">
+          </div>
+        </form>
       </div>
     </div>
   </body>

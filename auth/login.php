@@ -42,10 +42,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <title>Login | GrabBoss</title>
     <style>
-      /* .form-control:active {
+      .form-control:focus {
         box-shadow: none;
-        border-style: none;
-      } */
+        border-color: skyblue;
+      }
     </style>
   </head>
   <body class="bg-light">
@@ -86,3 +86,5 @@
     </div>
   </body>
 </html>
+
+
