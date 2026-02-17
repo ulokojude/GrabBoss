@@ -9,15 +9,22 @@
   }
   $search = htmlspecialchars($_GET['search'] ?? '');
   // filter products if search term exists
-  if ($search !== "") {
+  if ($search != '') {
     foreach($products as $product) {
-      if (stripos($product['name'], $search) !== false) {
+      // Check name or, keywords
+      $matchName = stripos($product['name'], $search) !== false;
+      $matchKeyword = false;
+      foreach($product['keywords'] as $kewword){
+        if (strpos($kewword, $search) !== false) {
+          $matchKeyword = true;
+          break;
+        }
+      } if ($matchName || $matchKeyword) {
         $filteredProducts[] = $product;
       }
-    }
+    } 
   } else {
-    /// No search term show all products
-    $filteredProducts = $products;
+      $filteredProducts = $products;
   }
 ?>
 
@@ -47,14 +54,14 @@
         </a>
       </div>
       <div class="amazon-header-middle-section">
-        <form action="products.php" method="GET" class="search-form"></form>
+        <form action="products.php" method="GET" class="search-form">
           <input class="search-bar" type="text" name="search" placeholder="Search"
             value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>"
           >
           <button class="search-button">
             <img class="search-icon" src="images/icons/search-icon.png">
           </button>
-        <!-- </form> -->
+        </form>
       </div>
       <div class="amazon-header-right-section">
         <!-- <a class="orders-link header-link" href="orders.html"> -->
@@ -75,10 +82,11 @@
           <div class="product-container">
             <div class="product-image-container">
               <img class="product-image"
+                alt="<?php echo htmlspecialchars($product['name']); ?>"
                 src="<?php echo $product['image']; ?>">
             </div> 
-            <div class="product-name limit-text-to-2-lines">
-              <?php echo $product['name']; ?>
+            <div class="product-name limit-text-to-2-lines" style="color: #333;">
+              <?php echo htmlspecialchars($product['name']); ?>
             </div>
             <div class="product-rating-container">
               <img class="product-rating-stars"
@@ -91,7 +99,9 @@
               $<?php echo number_format($product['priceCents'] / 100, 2); ?>
             </div>
             <label>
-              <a href="product-details.php#<?php echo $product['id']; ?>">View details</a>
+              <a href="product-details.php#<?php echo $product['id']; ?>">
+                View details
+              </a>
             </label>
             <div class="product-spacer"></div>
             <div class="added-to-cart">
