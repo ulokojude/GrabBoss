@@ -15,49 +15,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/instyle.css">
     <title>My Account | GrabBoss</title>
-    <style>
-      body {
-        background-color: #f8f9fa;
-      }
-
-      .account-sidebar {
-        background: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      }
-
-      .account-sidebar .nav-link {
-        color: #333;
-        font-weight: 500;
-        padding: 12px;
-        border-radius: 8px;
-      }
-
-      .account-sidebar .nav-link.active,
-      .account-sidebar .nav-link:hover {
-        background-color: #0d6efd;
-        color: white;
-      }
-
-      .account-card {
-        background: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-      }
-
-      .profile-header {
-        border-bottom: 1px solid #eee;
-        padding-bottom: 15px;
-        margin-bottom: 20px;
-      }
-
-      @media (max-width: 767px) {
-        .account-sidebar {
-          margin-bottom: 20px;
-        }
-      }
-    </style>
   </head>
   <body>
     <div class="container py-4">
