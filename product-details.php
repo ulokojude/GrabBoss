@@ -75,9 +75,9 @@
             N<?php echo number_format($productDetails['priceCents'] / 100, 2); ?>
           </h4>
           <p class="mt-3"></p>
-          <div class="mb-3">
-            <label for="form-label">Quantity</label>
-            <input type="number" class="form-control w-50" value="<?php echo "344"; ?>" min="1" readonly>
+          <!-- <div class="mb-3"> -->
+            <!-- <label for="form-label">Quantity</label>
+            <?php //echo $productDetai']; ?> -->
           </div>
           <button class="btn btn-primary me-2" data-product-id="<?php echo $productDetails['id']; ?>">
             Add to Cart
