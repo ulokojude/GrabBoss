@@ -1,7 +1,7 @@
 <?php 
   session_start();
-  include("data/products.php");
-  require("config/db.php");
+  include("../data/products.php");
+  require("../config/db.php");
 
   if(!isset($_SESSION["user_id"])) {
     header("Location: auth/login.php");
@@ -67,10 +67,10 @@
           <div class="account-sidebar p-3">
             <h6 class="mb-3 fw-bold">My Account</h6>
             <nav class="nav flex-column">
-              <a href="#" class="nav-link active">Orders</a>
-              <a href="products.php" class="nav-link">Return to Catalogue</a>
-              <a href="in/settings.php" class="nav-link">Settings</a>
-              <a href="auth/logout.php" class="nav-link text-danger">Logout</a>
+              <a href="../index.php" class="nav-link">Orders</a>
+              <a href="../products.php" class="nav-link">Return to Catalogue</a>
+              <a href="#" class="nav-link active">Settings</a>
+              <a href="../auth/logout.php" class="nav-link text-danger">Logout</a>
             </nav>
           </div>
         </div>
@@ -122,7 +122,7 @@
 
               <div class="col-12 col-md-4 mb-3">
                 <label for="" class="form-label">New Password</label>
-                <input type="password" class="form-control" placeholder="Confirm password">
+                <input type="password" class="form-control" placeholder="New password">
               </div>
             </div>
             <button type="submit" class="btn btn-dark">Update Profile</button>
