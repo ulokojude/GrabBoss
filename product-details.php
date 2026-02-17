@@ -7,22 +7,23 @@
     exit();
   }
 
-  $id = $_GET['id'] ?? null;
-  function pro_name($products, $id) {
-    foreach ($products as $product) {
-      if ($product['id'] == $id) {
-        return $product['name'];
-      }
+  // Get product ID from URL hash
+  $productId = $_GET['id'] ?? '';
+
+  //search for product in products array
+  $productDetails = null;
+  foreach($products as $product) {
+    if ($product['id'] === $productId) {
+      $productDetails = $product;
+      break;
     }
-    return null;
   }
-  
-  // if ($id) {
-  //   $name = pro_name($products, $id);
-  //   echo $name;
-  // } else {
-  //   echo "invalid name";
-  // }
+
+  // Handle product not found
+  if (!$productDetails) {
+    echo "<h2>Product not found</h2>";
+    exit();
+  }
 ?>
 
 <!DOCTYPE html>
@@ -60,25 +61,27 @@
     <section class="container py-5">
       <div class="">
         <div class="align-items-center">
-          <img class="product-image" src="/bathroom-rug.jpg" width="90px">
+          <img 
+            class="img-fluid rounded" 
+            alt="<?php echo htmlspecialchars($productDetails['name']); ?>"
+            src="<?php echo htmlspecialchars($productDetails['image']); ?>" 
+            width="90px"
+          >
         </div>
         <div class="col-12 col-md-6">
-          <h3>
-            (product name)
-            <?php 
-              //echo pro_name($products, $id); 
-            ?>
-          </h3>
-          <p class="text">Category: (Category)</p>
-          <h4 class="text-success">N(Products prics)</h4>
-          <p class="mt-3">
-            (Product details)
-          </p>
+          <h3><?php echo htmlspecialchars($productDetails['name']); ?></h3>
+          <!-- <p class="text">Category: (Category)</p> -->
+          <h4 class="text-success">
+            N<?php echo number_format($productDetails['priceCents'] / 100, 2); ?>
+          </h4>
+          <p class="mt-3"></p>
           <div class="mb-3">
             <label for="form-label">Quantity</label>
             <input type="number" class="form-control w-50" value="<?php echo "344"; ?>" min="1" readonly>
           </div>
-          <button class="btn btn-primary me-2">Add to Cart</button>
+          <button class="btn btn-primary me-2" data-product-id="<?php echo $productDetails['id']; ?>">
+            Add to Cart
+          </button>
           <a href="products.php" class="btn btn-outline-secondary">
             Back to products
           </a>

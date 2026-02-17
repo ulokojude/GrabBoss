@@ -42,6 +42,19 @@
     <link rel="stylesheet" href="styles/grabboss-header.css">
     <link rel="stylesheet" href="styles/grabboss.css">
     <!-- <link rel="stylesheet" href="/styles/trans.css"> -->
+    <style>
+      .view-details-link {
+        color: #0d6efd;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+      }
+
+      .view-details-link:hover {
+        color: #0a58ca;
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
     <div class="amazon-header">
@@ -98,11 +111,9 @@
             <div class="product-price">
               $<?php echo number_format($product['priceCents'] / 100, 2); ?>
             </div>
-            <label>
-              <a href="product-details.php#<?php echo $product['id']; ?>">
-                View details
-              </a>
-            </label>
+            <a class="view-details-link" href="product-details.php?id=<?php echo $product['id']; ?>">
+              View details
+            </a>
             <div class="product-spacer"></div>
             <div class="added-to-cart">
               <img src="images/icons/checkmark.png">
