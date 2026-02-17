@@ -8,23 +8,24 @@
     exit();
   }
   $search = htmlspecialchars($_GET['search'] ?? '');
+  $filteredProducts = [];
   // filter products if search term exists
   if ($search != '') {
     foreach($products as $product) {
-      // Check name or, keywords
       $matchName = stripos($product['name'], $search) !== false;
       $matchKeyword = false;
-      foreach($product['keywords'] as $kewword){
-        if (strpos($kewword, $search) !== false) {
+      foreach($product['keywords'] as $keyword) {
+        if (strpos($keyword, $search) !== false) {
           $matchKeyword = true;
           break;
         }
-      } if ($matchName || $matchKeyword) {
+      }
+      if ($matchName || $matchKeyword) {
         $filteredProducts[] = $product;
       }
     } 
   } else {
-      $filteredProducts = $products;
+    $filteredProducts = $products;
   }
 ?>
 
@@ -67,14 +68,13 @@
         </a>
       </div>
       <div class="amazon-header-middle-section">
-        <form action="products.php" method="GET" class="search-form">
-          <input class="search-bar" type="text" name="search" placeholder="Search"
-            value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>"
-          >
-          <button class="search-button">
-            <img class="search-icon" src="images/icons/search-icon.png">
-          </button>
-        </form>
+        <input class="search-bar" type="text" name="search" 
+          placeholder="Search" id="searchInput"
+          value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>"
+        >
+        <button class="search-button" id="searchButton">
+          <img class="search-icon" alt="Search" src="images/icons/search-icon.png">
+        </button>
       </div>
       <div class="amazon-header-right-section">
         <!-- <a class="orders-link header-link" href="orders.html"> -->
@@ -129,7 +129,35 @@
       </div>
     </div>
     <?php include("includes/footer.php"); ?>
-    <script type="module" src="/scripts/amazon.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.querySelector('#searchInput');
+        const searchButton = document.querySelector('#searchButton');
+        
+        // Handle search button click
+        searchButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          performSearch();
+        });
+
+        // Handle enter key in search input
+        searchInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            performSearch();
+          }
+        });
+
+        function performSearch() {
+          const query = searchInput.value.trim();
+          if (query) {
+            window.location.href = `products.php?search=${encodeURIComponent(query)}`;
+          } else {
+            window.location.href = 'products.php';
+          }
+        }
+      });
+    </script>
   </body>
 </html>
 
