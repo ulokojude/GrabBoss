@@ -24,6 +24,9 @@
     mysqli_stmt_execute($stmt);
     if (mysqli_stmt_affected_rows($stmt) > 0) {
       $_SESSION["user_name"] = $name;
+      $message = "Profile updated successfully";
+      $mess = "alert-success";
+      header("refresh:2; url=settings.php");
       header("Location: settings.php");
       exit();
     } else {
@@ -77,19 +80,19 @@
                   <input type="email" class="form-control" value="<?php echo $_SESSION["user_email"]; ?>" disabled>
                 </div>
               </div>
-            </form>
-            <hr>
-            <div class="row">
-              <div class="col-12 col-md-6 mb-3">
-                <button class="btn btn-primary mb-4">Save Changes</button>
-              </div>
+              <hr>
+              <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                  <button class="btn btn-primary mb-4">Save Changes</button>
+                </div>
 
-              <div class="col-12 col-md-6 mb-3"> 
-                <div class="alert <?php echo $mess; ?>" role="alert">
-                  <?php echo $message; ?>
+                <div class="col-12 col-md-6 mb-3"> 
+                  <div class="alert <?php echo $mess; ?>" role="alert">
+                    <?php echo $message; ?>
+                  </div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
           <hr>
           <!-- Password Reset -->

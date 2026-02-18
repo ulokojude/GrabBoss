@@ -35,57 +35,22 @@
         </div>
 
         <div class="col-12 col-md-8 col-lg-9">
-          <div class="account-card p-4">
-            <!-- profile header -->
-            <div class="profile-header">
-              <h4 class="mb-1">Account Overview</h4>
-              <small class="text-muted">Manage your personal information</small>
+          <!-- Let my orders show here -->
+          <div class="account-content p-3">
+            <div class="d-flex align-items-center mb-4">
+              <h5 class="mb-0">My Orders</h5>
             </div>
-            <!-- User Info -->
-            <div class="row mb-4">
-              <div class="col-12 col-md-6 mb-3">
-                <label for="" class="form-label">Full Name</label>
-                <input type="text" class="form-control" value="Jude Uloko">
-              </div>
-
-              <div class="col-12 col-md-6 mb-3">
-                <label for="" class="form-label">Email Adress</label>
-                <input type="email" class="form-control" value="jude@example.com" disabled>
-              </div>
-
-              <!-- <div class="col-12">
-                <label for="" class="form-label fw-semibold">About You</label>
-                <textarea name="" class="form-control" rows="3" id="">
-                  Lorem ipsum dolor sit amet consectetur 
-                  adipisicing elit. Ea, iure! Sunt ullam 
-                  tempora earum cupiditate repellat officia 
-                  delectus, aperiam explicabo libero 
-                  asperiores et cum quaerat laboriosam 
-                  commodi? Laborum, explicabo eaque.
-                </textarea>
-              </div> -->
-            </div>
-
-            <button class="btn btn-primary mb-4">Save Changes</button>
           </div>
-          <hr>
-          <!-- Password Reset -->
-          <h5 class="mt-4 mb-3">Change password</h5>
-
-          <form action="" method="post">
-            <div class="row">
-              <div class="col-12 col-md-4 mb-3">
-                <label for="" class="form-label">Current Password</label>
-                <input type="password" class="form-control" placeholder="Current Password">
-              </div>
-
-              <div class="col-12 col-md-4 mb-3">
-                <label for="" class="form-label">New Password</label>
-                <input type="password" class="form-control" placeholder="Confirm password">
-              </div>
-            </div>
-            <button type="submit" class="btn btn-dark">Update Profile</button>
-          </form>
+          <?php 
+            // If there are no orders, show a message
+            echo '
+            <div class="text-center text-muted py-5">
+              <h6 class="mb-3">No orders yet</h6>
+              <p>Looks like you haven\'t made any orders yet. Start shopping now!</p>
+              <a href="products.php" class="btn btn-primary">Shop Now</a>
+            </div>';
+                  
+                  ?>
         </div>
       </div>
     </div>
