@@ -42,7 +42,7 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
         <a href="index.php" class="navbar-brand">GrabBoss</a>
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
@@ -50,9 +50,9 @@
         </button>
         <div class="collapse navbar-collapse" id="nav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a href="products.php" class="nav-link">Products</a></li>
-            <li class="nav-item"><a href="cart.php" class="nav-link">Cart</a></li>
-            <li class="nav-item"><a href="index.php" class="nav-link text-light">Profile</a></li>
+            <li class="nav-item"><a href="products.php" class="nav-link h5">Products</a></li>
+            <li class="nav-item"><a href="cart.php" class="nav-link h5">Cart</a></li>
+            <li class="nav-item"><a href="index.php" class="nav-link text-light h5">Profile</a></li>
           </ul>
         </div>
       </div>
@@ -60,7 +60,7 @@
 
     <section class="container py-5">
       <div class="">
-        <div class="align-items-center">
+        <div class="align-items-center mb-3">
           <img 
             class="img-fluid rounded" 
             alt="<?php echo htmlspecialchars($productDetails['name']); ?>"

@@ -335,7 +335,8 @@
       "keywords" => [
         "pants",
         "apparel",
-        "mens"
+        "mens",
+        "cloth"
       ]
     ],
     [
