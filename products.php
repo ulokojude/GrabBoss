@@ -3,10 +3,7 @@
   include("includes/header.php");
   include("data/products.php");
   require("config/db.php");
-  if(!isset($_SESSION["user_id"])) {
-    header("Location: auth/login.php");
-    exit();
-  }
+  require "includes/auth-check.php";
   $search = htmlspecialchars($_GET['search'] ?? '');
   $filteredProducts = [];
   // filter products if search term exists

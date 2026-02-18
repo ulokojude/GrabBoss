@@ -1,7 +1,7 @@
 <?php 
   session_start();
-  if(!isses($_SESSION["user_id"])) {
-    header("Location: /ecommerce/auth/login.php");
+  if(!isset($_SESSION["user_id"])) {
+    header("Location: /GrbBoss/auth/login.php");
     exit();
   }
 ?>

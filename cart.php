@@ -29,7 +29,7 @@
           <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a href="products.php" class="nav-link h5">Products</a></li>
             <li class="nav-item"><a href="cart.php" class="nav-link text-light h5">Cart</a></li>
-            <li class="nav-item"><a href="index.php" class="nav-link h5">Profile</a></li>
+            <!-- <li class="nav-item"><a href="index.php" class="nav-link h5">Profile</a></li> -->
           </ul>
         </div>
       </div>
