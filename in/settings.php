@@ -7,8 +7,31 @@
     header("Location: auth/login.php");
     exit();
   }
-?>
 
+  $message = "";
+  $mess = "";
+
+  // recieve the new info and update the database
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $password = $_POST["password"];
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $user_id = $_SESSION["user_id"];
+
+    $sql = "UPDATE users SET name = ?, password = ?, email = ? WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "ssss", $name, password_hash($password, PASSWORD_DEFAULT), $email, $user_id);
+    mysqli_stmt_execute($stmt);
+    if (mysqli_stmt_affected_rows($stmt) > 0) {
+      $_SESSION["user_name"] = $name;
+      header("Location: settings.php");
+      exit();
+    } else {
+      $message = "Error updating profile";
+      $mess = "alert-danger";
+    }
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,37 +65,37 @@
               <small class="text-muted">Manage your personal information</small>
             </div>
             <!-- User Info -->
-            <div class="row mb-4">
+            <form action="settings.php" method="POST">
+              <div class="row mb-4">
+                <div class="col-12 col-md-6 mb-3">
+                  <label for="" class="form-label">Full Name</label>
+                  <input type="text" name="name" class="form-control" value="<?php echo $_SESSION["user_name"]; ?>" required>
+                </div>
+
+                <div class="col-12 col-md-6 mb-3">
+                  <label for="" class="form-label">Email Adress</label>
+                  <input type="email" class="form-control" value="<?php echo $_SESSION["user_email"]; ?>" disabled>
+                </div>
+              </div>
+            </form>
+            <hr>
+            <div class="row">
               <div class="col-12 col-md-6 mb-3">
-                <label for="" class="form-label">Full Name</label>
-                <input type="text" class="form-control" value="Jude Uloko">
+                <button class="btn btn-primary mb-4">Save Changes</button>
               </div>
 
-              <div class="col-12 col-md-6 mb-3">
-                <label for="" class="form-label">Email Adress</label>
-                <input type="email" class="form-control" value="jude@example.com" disabled>
+              <div class="col-12 col-md-6 mb-3"> 
+                <div class="alert <?php echo $mess; ?>" role="alert">
+                  <?php echo $message; ?>
+                </div>
               </div>
-
-              <!-- <div class="col-12">
-                <label for="" class="form-label fw-semibold">About You</label>
-                <textarea name="" class="form-control" rows="3" id="">
-                  Lorem ipsum dolor sit amet consectetur 
-                  adipisicing elit. Ea, iure! Sunt ullam 
-                  tempora earum cupiditate repellat officia 
-                  delectus, aperiam explicabo libero 
-                  asperiores et cum quaerat laboriosam 
-                  commodi? Laborum, explicabo eaque.
-                </textarea>
-              </div> -->
             </div>
-
-            <button class="btn btn-primary mb-4">Save Changes</button>
           </div>
           <hr>
           <!-- Password Reset -->
           <h5 class="mt-4 mb-3">Change password</h5>
 
-          <form action="" method="post">
+          <form action="settings.php" method="POST">
             <div class="row">
               <div class="col-12 col-md-4 mb-3">
                 <label for="" class="form-label">Current Password</label>
@@ -83,6 +106,7 @@
                 <label for="" class="form-label">New Password</label>
                 <input type="password" class="form-control" placeholder="New password">
               </div>
+
             </div>
             <button type="submit" class="btn btn-dark">Update Profile</button>
           </form>
