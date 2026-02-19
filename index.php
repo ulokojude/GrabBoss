@@ -50,7 +50,79 @@
               <a href="products.php" class="btn btn-primary">Shop Now</a>
             </div>';
                   
-                  ?>
+          ?>
+
+
+
+
+          <div class="container">
+            <div class="container">
+              <div class="row">
+
+                <div class="card col-3 m-1">
+                  <!-- product image -->
+                  <img class="card-img-top" src="holder.js/100x180/" alt="Title" />
+                  <div class="card-body">
+                    <h4 class="card-title">Product Name</h4>
+                    <h6>Quantite</h6>
+                    <h6>Total price</h6>
+                    <p class="card-text">
+                      <a href="">Increase</a>
+                      <a href="">Decrease</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="card col-3 m-1">
+                  <!-- product image -->
+                  <img class="card-img-top" src="holder.js/100x180/" alt="Title" />
+                  <div class="card-body">
+                    <h4 class="card-title">Title</h4>
+                    <p class="card-text">Text</p>
+                  </div>
+                </div>
+
+                <div class="card col-3 m-1">
+                  <!-- product image -->
+                  <img class="card-img-top" src="holder.js/100x180/" alt="Title" />
+                  <div class="card-body">
+                    <h4 class="card-title">Title</h4>
+                    <p class="card-text">Text</p>
+                  </div>
+                </div>
+
+                <div class="card col-3 m-1">
+                  <!-- product image -->
+                  <img class="card-img-top" src="holder.js/100x180/" alt="Title" />
+                  <div class="card-body">
+                    <h4 class="card-title">Title</h4>
+                    <p class="card-text">Text</p>
+                  </div>
+                </div>
+
+                <div class="card col-3 m-1">
+                  <!-- product image -->
+                  <img class="card-img-top" src="holder.js/100x180/" alt="Title" />
+                  <div class="card-body">
+                    <h4 class="card-title">Title</h4>
+                    <p class="card-text">Text</p>
+                  </div>
+                </div>
+
+                <div class="card col-3 m-1">
+                  <!-- product image -->
+                  <img class="card-img-top" src="holder.js/100x180/" alt="Title" />
+                  <div class="card-body">
+                    <h4 class="card-title">Title</h4>
+                    <p class="card-text">Text</p>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            
+          </div>
+          
         </div>
       </div>
     </div>

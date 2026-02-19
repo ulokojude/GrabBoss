@@ -77,7 +77,7 @@
 
                 <div class="col-12 col-md-6 mb-3">
                   <label for="" class="form-label">Email Adress</label>
-                  <input type="email" class="form-control" value="<?php echo $_SESSION["user_email"]; ?>" disabled>
+                  <input type="email" class="form-control" value="<?php echo $_SESSION["email"]; ?>" disabled>
                 </div>
               </div>
               <hr>
