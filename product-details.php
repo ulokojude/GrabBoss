@@ -50,9 +50,9 @@
         </button>
         <div class="collapse navbar-collapse" id="nav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a href="products.php" class="nav-link h5">Products</a></li>
-            <li class="nav-item"><a href="cart.php" class="nav-link h5">Cart</a></li>
-            <li class="nav-item"><a href="index.php" class="nav-link text-light h5">Profile</a></li>
+            <li class="nav-item"><a href="products.php" class="nav-link h6">Products</a></li>
+            <li class="nav-item"><a href="cart.php" class="nav-link h6">Cart</a></li>
+            <li class="nav-item"><a href="auth/logout.php" class="nav-link text-danger h6">Logout</a></li>
           </ul>
         </div>
       </div>
@@ -72,12 +72,12 @@
           <h3><?php echo htmlspecialchars($productDetails['name']); ?></h3>
           <!-- <p class="text">Category: (Category)</p> -->
           <h4 class="text-success">
-            N<?php echo number_format($productDetails['priceCents'] / 100, 2); ?>
+            N<?php echo htmlspecialchars(number_format($productDetails['priceCents'] / 100, 2)); ?>
           </h4>
           <p class="mt-3"></p>
-          <!-- <div class="mb-3"> -->
-            <!-- <label for="form-label">Quantity</label>
-            <?php //echo $productDetai']; ?> -->
+          <div class="mb-3">
+            <img class="product-rating-stars"
+              src="images/ratings/rating-<?php echo $product['rating']['stars'] * 10; ?>.png">
           </div>
           <button class="btn btn-primary me-2" data-product-id="<?php echo $productDetails['id']; ?>">
             Add to Cart

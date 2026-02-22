@@ -53,23 +53,51 @@
             <th></th>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <img src="bathroom-rug.jpg" width="50px" class="rounded me-2 shadow" alt="Product">
-                  <span>Smartphone</span>
-                </div>
-              </td>
-              <td>N120,000</td>
-              <td>
-                <input type="number" class="form-control" value="1">
-              </td>
-              <td>N120,000</td>
-              <td>
-                <button class="btn btn-sm btn-danger">Remove</button>
-              </td>
-            </tr>
-
+            <?php 
+              if(mysqli_num_rows($result) > 0) {
+                while($row = mysqli_fetch_assoc($result)) {
+                  $product = null;
+                  foreach($products as $p) {
+                    if ($p['id'] == $row['product_id']){
+                      $product = $p;
+                      break;
+                    }
+                  }
+                  if(!$product) continue;
+                  $subtotal += $row['total_price'];
+                  ?>
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <img src="<?php echo $product['images'] ?>"
+                          width="50px" class="rounded me-2 shadow"
+                          alt="<?php echo $product['name']; ?>"
+                        >
+                        <span><?php echo $product["name"]; ?></span>
+                      </div>
+                    </td>
+                    <td>N<?php echo number_format($row['price']); ?></td>
+                    <td>
+                      <input type="number" class="form-control quantity-input" 
+                        value="<?php echo $row['quantity']; ?>"
+                        data-order-id="<?php echo $id['id'] ?>"
+                      >
+                    </td>
+                    <td>
+                      N<?php echo number_format($row['total_price']); ?>
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-danger remove-btn" data-order-id="<?php echo $row['id']; ?>">
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                  <?php
+                }
+              } else {
+                  echo '<tr><td colspan="5" class="text-center text-muted py-3">Your cart is empty</td></tr>';
+              }
+            ?>
           </tbody>
         </table>
       </div>
@@ -82,7 +110,7 @@
           <hr>
           <p class="d-flex justify-content-between">
             <span>Subtotal</span>
-            <strong>N120,000</strong>
+            <strong>N<?php echo number_format($subtotal); ?></strong>
           </p>
           <p class="d-flex justify-content-between">
             <span>Delivery</span>
@@ -90,14 +118,37 @@
           </p>
           <p class="d-flex justify-content-between fs-5">
             <span>Total</span>
-            <strong>N120,000</strong>
+            <strong>N<?php echo number_format($subtotal); ?></strong>
           </p>
-          <a href="checkout.php" class="btn btn-success w-100 mt-2">
+          <a class="btn btn-success w-100 mt-2 check_out_pro">
             Proceed To Checkout
           </a>
         </div>
       </div>
     </div>
+    <script>
+      $(document).ready(function(){
+        //remove item
+        $(".remove-btn").click(function(){
+          var orderId = $(this).data("order-id");
+          if(confirm("Remove this item from cart?")){
+            $.post("cart_action.php",{action:"remove", order_id:orderId}, function(){
+              location.reload();
+            });
+          }
+        });
+
+        // Upload quantity
+        $(".quantity-input").change(function(){
+          var orderId = $(this).data("order-id");
+          var qty = $(this).val();
+          if(qty < 1) qty = 1;
+          $.post("cart_action.php", {action:"update", order_id:orderId, quantity:qty}, function(){
+            location.reload();
+          });
+        });
+      });
+    </script>
     <?php include "includes/footer.php"; ?>
   </body>
 </html>

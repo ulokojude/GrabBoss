@@ -130,13 +130,11 @@
       document.addEventListener('DOMContentLoaded', () => {
         const searchInput = document.querySelector('#searchInput');
         const searchButton = document.querySelector('#searchButton');
-        
         // Handle search button click
         searchButton.addEventListener('click', (e) => {
           e.preventDefault();
           performSearch();
         });
-
         // Handle enter key in search input
         searchInput.addEventListener('keypress', (e) => {
           if (e.key === 'Enter') {
@@ -164,7 +162,7 @@
             //show added message
             button.siblings(".added-to-cart").fadeIn().delay(1000).fadeOut();
             //update cart quantity in header
-            $.get("cart_quantity.php". function(data){
+            $.get("cart_quantity.php", function(data){
               $(".js-cart-quantity").text(data);
             }, "json");
           });

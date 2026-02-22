@@ -5,8 +5,8 @@
     header("Location: forgot-password.php");
     exit();
   }
-  $message = "";
-  $mess = "";
+  $message = "Your eamil was found.";
+  $mess = "alert-success";
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $confirm = $_POST["confirm"];
@@ -62,11 +62,11 @@
         <form action="" method="POST">
           <div class="mb-3">
             <label for="" class="form-label">New password</label>
-            <input type="password" name="password" class="form-control" placeholder="new password" required>
+            <input type="password" name="password" class="form-control" placeholder="New Password" required>
           </div>
           <div class="mb-3">
             <label for="" class="form-label">Confirm Password</label>
-            <input type="password" name="confirm" class="form-control" placeholder="re-type password" required>
+            <input type="password" name="confirm" class="form-control" placeholder="Confirm Password" required>
           </div>
           <div class="mb-3">
             <button class="btn btn-success w-100">
