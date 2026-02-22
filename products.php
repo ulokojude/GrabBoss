@@ -142,7 +142,7 @@
             performSearch();
           }
         });
-
+        
         function performSearch() {
           const query = searchInput.value.trim();
           if (query) {

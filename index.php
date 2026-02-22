@@ -53,7 +53,7 @@
                     <div class="card h-100 shadow-sm">
                       <img src="uploads/<?php echo $row['image']; ?>" 
                         class="card-img-top img-fluid" alt="Product"
-                        style="height:200px; objet-fit:cover;"
+                        style="height:200px; object-fit:cover;"
                       >
                       <div class="card-body">
                         <h6 class="fw-bold"><?php echo $row['name']; ?></h6>
