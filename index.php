@@ -1,22 +1,18 @@
 <?php 
   session_start();
+  require_once "config/db.php";
 
   if(!isset($_SESSION["user_id"])) {
     header("Location: auth/login.php");
     exit();
   }
 
-  include("data/products.php");
-  require("config/db.php");
-
   $user_id = $_SESSION["user_id"];
-
-  $sql = "SELECT o.id as o.id, o.quantity, o.total_price, p.name, p.image FROM orders o JOIN products p ON o.product_id = p.id WHERE o.user_id = ?";
-
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("i", $user_id);
-  $stmt->execute();
-  $result = $stmt->get_result();
+  $sql = "SELECT o.id, o.quantity, o.total_price, p.name, p.image 
+          FROM orders o 
+          JOIN products p ON o.product_id = p.id 
+          WHERE o.user_id = $user_id";
+  $stmt = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -51,14 +47,13 @@
             </div>
 
             <div class="row g-4">
-              <?php if($result->num_row > 0); ?>
-                <?php while($row = $result->fetch_assoc()); ?>
+              <?php if(mysqli_num_rows($result) > 0) { ?>
+                <?php while($row = mysqli_fetch_assoc($result)) { ?>
                   <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card h-100 shadow-sm">
-                      <img src="uploads/<?php echo $row['image']; ?>"
-                        class="card-img-top img-fluid"
-                        style="height: 200px; object-fit:cover;"   
-                        alt="Product"
+                      <img src="uploads/<?php echo $row['image']; ?>" 
+                        class="card-img-top img-fluid" alt="Product"
+                        style="height:200px; objet-fit:cover;"
                       >
                       <div class="card-body">
                         <h6 class="fw-bold"><?php echo $row['name']; ?></h6>
@@ -69,14 +64,14 @@
                       </div>
                     </div>
                   </div>
-                <?php endif; ?>
-              <?php else: ?>
+                <?php } ?>
+              <?php } else { ?>
                 <div class="text-center text-muted py-5">
                   <h6 class="mb-3">No orders yet</h6>
-                  <p>Loks like you hav't made any orders yet.</p>
+                  <p>Looks like you hav't made any orders yet.</p>
                   <a href="products.php" class="btn btn-primary">Shop Now</a>
                 </div>
-              <?php endif; ?>
+              <?php } ?>
             </div>
           </div>
         </div>

@@ -1,11 +1,17 @@
 <?php
   session_start();
   require("config/db.php");
+  require("data/products.php");
+
   if(!isset($_SESSION["user_id"])) {
     header("Location: auth/login.php");
     exit();
   }
-  require("data/products.php");
+
+  $user_id = $_SESSION['user_id'];
+  $result = mysqli_query($conn, "SELECT * FROM orders WHERE user_id=$user_id");
+  $subtotal = 0;
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,9 +33,9 @@
 
         <div class="collapse navbar-collapse" id="nav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a href="products.php" class="nav-link h5">Products</a></li>
-            <li class="nav-item"><a href="cart.php" class="nav-link text-light h5">Cart</a></li>
-            <!-- <li class="nav-item"><a href="index.php" class="nav-link h5">Profile</a></li> -->
+            <li class="nav-item"><a href="products.php" class="nav-link h6">Products</a></li>
+            <li class="nav-item"><a href="cart.php" class="nav-link text-light h6">Cart</a></li>
+            <li class="nav-item"><a href="auth/logout.php" class="nav-link text-danger h6">Logout</a></li>
           </ul>
         </div>
       </div>
@@ -47,11 +53,6 @@
             <th></th>
           </thead>
           <tbody>
-            <!-- 
-              Regerate the TRs below .
-              If it's reaches a number,
-              implement pagination. 
-            -->
             <tr>
               <td>
                 <div class="d-flex align-items-center">
