@@ -64,11 +64,19 @@
                         <h6 class="fw-bold"><?php echo $row['name']; ?></h6>
                         <p class="mb-1">Quantity: <?php echo $row['quantity']; ?></p>
                         <p class="text-primary fw-bold">
-                          N<?php  ?>
+                          N<?php echo number_format($row['total_price']); ?>
                         </p>
                       </div>
                     </div>
                   </div>
+                <?php endif; ?>
+              <?php else: ?>
+                <div class="text-center text-muted py-5">
+                  <h6 class="mb-3">No orders yet</h6>
+                  <p>Loks like you hav't made any orders yet.</p>
+                  <a href="products.php" class="btn btn-primary">Shop Now</a>
+                </div>
+              <?php endif; ?>
             </div>
           </div>
         </div>
