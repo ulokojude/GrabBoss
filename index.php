@@ -11,7 +11,7 @@
 
   $user_id = $_SESSION["user_id"];
 
-  $sql = "SELECT o.id as o.id. o.quantity, o.total_price, p.name, p.image FROM orders o JOIN products p ON o.product_id = p.id WHERE o.user_id = ?";
+  $sql = "SELECT o.id as o.id, o.quantity, o.total_price, p.name, p.image FROM orders o JOIN products p ON o.product_id = p.id WHERE o.user_id = ?";
 
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("i", $user_id);
