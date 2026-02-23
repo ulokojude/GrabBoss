@@ -129,6 +129,8 @@
       email.addEventListener('input', checkFields);
       password.addEventListener('input', checkFields);
       confirmPassword.addEventListener('input', checkFields);
+
+      
     </script>
   </body>
 </html>

@@ -66,7 +66,12 @@
           </div>
           <div class="mb-3">
             <label for="" class="form-label">Password</label>
-            <input type="password" placeholder="password" name="password" class="form-control" required>
+            <!-- <div class="input-group"> -->
+              <!-- <span class="input-group-text">
+                <i class="bi bi-lock"></i>
+              </span> -->
+              <input type="password" placeholder="password" name="password" class="form-control" required>
+            <!-- </div> -->
           </div>
           <div class="mb-3">
             <button class="btn btn-primary w-100">Login</button>
@@ -85,6 +90,9 @@
         </form>
       </div>
     </div>
+    <script>
+
+    </script>
   </body>
 </html>
 

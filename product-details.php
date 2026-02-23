@@ -20,8 +20,8 @@
   }
 
   // Handle product not found
-  if (!$productDetails) {
-    echo "<h2>Product not found</h2>";
+  if (!$productDetails || empty($productId)) {
+    header("Location: products.php");
     exit();
   }
 ?>
@@ -35,16 +35,12 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
       crossorigin="anonymous">
     <title>Product Details | GrabBoss</title>
-    <style>
-      .form-control:active {
-        
-      }
-    </style>
+    <style></style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
-        <a href="index.php" class="navbar-brand">GrabBoss</a>
+        <a href="#" class="navbar-brand">GrabBoss</a>
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
           <span class="navbar-toggler-icon"></span>
         </button>
