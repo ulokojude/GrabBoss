@@ -2,12 +2,12 @@
   session_start();
   include("../config/db.php");
   if(!isset($_SESSION["reset_email"])) {
-    header("Location: forgot-password.php");
+    header( "Location: forgot-password.php" );
     exit();
   }
   $message = "Your eamil was found.";
   $mess = "alert-success";
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if ( $_SERVER[ "REQUEST_METHOD" ] == "POST" ) {
     $password = $_POST["password"];
     $confirm = $_POST["confirm"];
     if (empty($password) || empty($confirm)) {
@@ -23,7 +23,7 @@
       $email = $_SESSION["reset_email"];
       
       //$query = "UPDATE users SET password = '$hashed' WHERE email= '$email'";
-      $stmt = $conn->prepare("UPDATE users SET password = ? WHERE email = ?");
+      $stmt = $conn->prepare( "UPDATE users SET password = ? WHERE email = ?" );
       $stmt->bind_param("ss", $hashed, $email);
       if($stmt->execute()) {
         unset($_SESSION['reset_email']);
@@ -76,5 +76,8 @@
         </form>
       </div>
     </div>
+    <script>
+
+    </script>
   </body>
 </html>

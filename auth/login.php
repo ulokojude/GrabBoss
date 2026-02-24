@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="../styles/generals.css" >
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icon@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css">
     <title>Login | GrabBoss</title>
     <style>
       .form-control:focus {
@@ -68,10 +69,17 @@
           <div class="mb-3">
             <label for="" class="form-label">Password</label>
             <div class="input-group">
-              <span class="input-group-text">
-                <i class="bi bi-lock input-group-text"></i>
+              <span class="input-group-text" id="togglePassword" style="cursor:pointer;">
+                <i class="bi bi-eye"></i>
               </span>
-              <input type="password" id="password" placeholder="password" name="password" class="form-control" required>
+              <input 
+                type="password" 
+                id="password" 
+                placeholder="password" 
+                name="password" 
+                class="form-control" 
+                required
+              >
             </div>
           </div>
           <div class="mb-3">
@@ -95,10 +103,12 @@
       // make the password hidden and plain
       const passwordInput = document.getElementById("password");
       const togglePassword = document.querySelector(".input-group-text");
+      const icon = togglePassword.querySelector("i");
       togglePassword.addEventListener("click", function () {
         const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-        passwordInput.setAttribute("type", type);
-        this.innerHTML = type === "password" ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+        passwordInput.type = type;
+        icon.classList.toggle("bi-eye");
+        icon.classList.toggle("bi-eye-slash");
       });
     </script>
   </body>
