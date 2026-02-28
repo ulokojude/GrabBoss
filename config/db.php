@@ -2,7 +2,7 @@
   $host = "localhost";
   $user = "root";
   $pass = "";
-  $db = "ecommerce_db";
+  $db = "grabboss";
   $conn = mysqli_connect($host, $user, $pass, $db);
   if (!$conn) {
     die("Database connection failed");

@@ -1,8 +1,8 @@
 <?php 
   session_start();
-  require("config/db.php");
-  require("data/products.php");
-  if(!isset($_SESSION["user_id"])) {
+  require( "config/db.php" );
+  require( "data/products.php" );
+  if(!isset($_SESSION[ "user_id" ])) {
     header("Location: auth/login.php");
     exit();
   }
@@ -68,7 +68,7 @@
           <h3><?php echo htmlspecialchars($productDetails['name']); ?></h3>
           <!-- <p class="text">Category: (Category)</p> -->
           <h4 class="text-success">
-            N<?php echo htmlspecialchars(number_format($productDetails['priceCents'] / 100, 2)); ?>
+            N<?php echo htmlspecialchars(number_format($productDetails['priceCents'] / 10, 2)); ?>
           </h4>
           <p class="mt-3"></p>
           <div class="mb-3">

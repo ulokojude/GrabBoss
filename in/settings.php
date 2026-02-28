@@ -12,8 +12,8 @@
   $mess = "";
 
   // recieve the new info and update the database
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $password = $_POST["password"];
+  if ($_SERVER[ "REQUEST_METHOD" ] == "POST") {
+    $password = $_POST[ "password" ];
     $name = $_POST["name"];
     $email = $_POST["email"];
     $user_id = $_SESSION["user_id"];

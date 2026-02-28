@@ -148,7 +148,7 @@
         function performSearch() {
           const query = searchInput.value.trim();
           if (query) {
-            window.location.href = `products.php?search=${encodeURIComponent(query)}`;
+            window.location.href = `products.php?search=${ encodeURIComponent(query) }`;
           } else {
             window.location.href = 'products.php';
           }
