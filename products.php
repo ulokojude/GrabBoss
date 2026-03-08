@@ -1,31 +1,21 @@
 <?php 
   session_start();
-  include("includes/header.php");
-  include("data/products.php");
-  require("config/db.php");
-  if(!isset($_SESSION["user_id"])) {
-    header("Location: auth/login.php");
+  include( "includes/header.php" );
+ 
+  require( "config/db.php" );
+  if(!isset($_SESSION[ "user_id" ])) {
+    header( "Location: auth/login.php" );
   }
-  $search = htmlspecialchars($_GET['search'] ?? '');
-  $filteredProducts = [];
-  // filter products if search term exists
-  if ($search != '') {
-    foreach($products as $product) {
-      $matchName = stripos($product['name'], $search) !== false;
-      $matchKeyword = false;
-      foreach($product['keywords'] as $keyword) {
-        if (strpos($keyword, $search) !== false) {
-          $matchKeyword = true;
-          break;
-        }
-      }
-      if ($matchName || $matchKeyword) {
-        $filteredProducts[] = $product;
-      }
-    } 
+  $search = htmlspecialchars( $_GET['search'] ?? '' );
+  
+  if($search != ''){
+    $stmt = $pdo->prepare( "SELECT * FROM products WHERE name LIKE :search OR keywords LIKE :search" );
+    $stmt->execute([ ":search" => "%$search%" ]);
   } else {
-    $filteredProducts = $products;
+    $stmt = $pdo->prepare( "SELECT * FROM products" );
+    $stmt->execute();
   }
+  $filteredProducts = $stmt->fetchALL(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -76,10 +66,7 @@
         </button>
       </div>
       <div class="amazon-header-right-section">
-        <!-- <a class="orders-link header-link" href="orders.html"> -->
-          <!-- <span class="returns-text">Returns</span>
-          <span class="orders-text">& Orders</span> -->
-        <!-- </a> -->
+
         <a class="cart-link header-link" href="cart.php">
           <img class="cart-icon" src="images/icons/cart-icon.png">
           <div class="cart-quantity js-cart-quantity">0</div>
@@ -108,7 +95,7 @@
               </div>
             </div>
             <div class="product-price">
-              $<?php echo number_format($product['priceCents'] / 100, 2); ?>
+              $<?php echo number_format($product['price'], 2); ?>
             </div>
             <a class="view-details-link" href="product-details.php?id=<?php echo $product['id']; ?>">
               View details
@@ -131,7 +118,7 @@
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const searchInput = document.querySelector('#searchInput');
-        const searchButton = document.querySelector('#searchButton');
+        const searchButton = document.querySelector( '#searchButton' );
         // Handle search button click
         searchButton.addEventListener('click', (e) => {
           e.preventDefault();

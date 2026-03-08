@@ -1,7 +1,7 @@
 <?php 
   session_start();
   require( "config/db.php" );
-  require( "data/products.php" );
+  
   if(!isset($_SESSION[ "user_id" ])) {
     header("Location: auth/login.php");
     exit();

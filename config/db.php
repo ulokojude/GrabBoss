@@ -1,10 +1,17 @@
 <?php
   $host = "localhost";
-  $user = "root";
-  $pass = "";
-  $db = "grabboss";
-  $conn = mysqli_connect($host, $user, $pass, $db);
-  if (!$conn) {
-    die("Database connection failed: " . mysqli_connect_error());
+  $dbname = "grabboss";
+  $username = "root";
+  $password = "";
+
+  try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+
+    // ENABLE ERROR MODE
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  } catch(PDOException $e) {
+    die("Database connection failed: ".$e->getMessage());
   }
+  
 ?>
+

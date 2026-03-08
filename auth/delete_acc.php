@@ -11,17 +11,14 @@
   if ($_SERVER ["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     // Fetch user's hashed password from the database
-    $stmt = $conn->prepare("SELECT password FROM users WHERE id = ?");
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if($result->num_rows === 1) {
-      $user = $result->fetch_assoc();
+    $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
+    $stmt->execute([$user_id]);
+    $user = $stm->fetch(PDO::FETCH_ASSOC);
+    if($user) {
       if(password_verify($password, $user['password'])){
-        // Delete account
-        $del = $conn->prepare("DELETE FROM users WHERE id = ?");
-        $del->bind_param("i", $user_id);
-        $del->execute();
+        //Delete account
+        $del = $pdo->prepare("DELETE FROM users WHERE id = ?");
+        $del->execute([$user_id]);
         session_destroy();
         header("Location: login.php");
         exit();

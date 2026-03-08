@@ -2,7 +2,7 @@
   include("../config/db.php");
   $message = "";
   $mess = "";
-  // $diss = "";
+  $diss = "";
 
   if($_SERVER["REQUEST_METHOD"] == "POST") {
     $full_name = trim($_POST["full_name"]);
@@ -19,10 +19,10 @@
       $mess = "alert-danger";
       $diss = "disabled";
     } 
-    // elseif (strlen($password) <= 5) {
-    //   $message = "Your password leght must be greater than 5 caracters";
-    //   $mess = "alert-danger";
-    // } 
+    elseif (strlen($password) <= 5) {
+      $message = "Your password leght must be greater than 5 caracters";
+      $mess = "alert-danger";
+    } 
     else {
       // Hash Password
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
