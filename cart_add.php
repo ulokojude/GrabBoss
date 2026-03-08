@@ -21,17 +21,21 @@
   if ($price == 0) exit;
 
   // check if product already in cart
-  $res = mysqli_query( $conn, "SELECT * FROM orders WHERE user_id=$user_id AND product_id=$product_id" );
+  $stmt = $pdo->prepare( "SELECT * FROM orders WHERE user_id = ? AND product_id = ?" );
+  $stmt->execute([$user_id, $product_id]);
 
   if (mysqli_num_rows($res) > 0) {
-    $row = mysqli_fetch_assoc($res);
-    $newQty = $row['quantity'] + 1;
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $newQty = $row[ 'quantity' ] + 1;
     $newTotal = $price * $newQty;
-    mysqli_query( $conn, "UPDATE orders SET quantity=$newQty, total_price=$newTotal WHERE id=".$row['id'] );
+
+    $update = $pdo->prepare( "UPDATE orders SET quantity= ?, total_price= ? WHERE id= ?" );
+    $update->execute([$newQty, $newTotal, $row['id']]);
   } else {
-    mysqli_query( $conn, "INSERT INTO orders (user_id, product_id, quantity, price, total_price) 
-      VALUES ($user_id, $product_id, 1, $price, $price)" );
+    $insert = $pdo->prepare( "INSERT INTO orders (user_id, product_id, quantity, price, total_price) 
+      VALUES (?, ?, 1, ?, ?)" );
+    $insert->execute([$user_id, $product_id, $price, $price]);
   }
   
-  echo json_encode(['success'=>true]);
+  echo json_encode([ 'success'=>true]);
 ?>

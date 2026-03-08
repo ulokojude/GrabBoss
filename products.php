@@ -6,9 +6,9 @@
   if(!isset($_SESSION[ "user_id" ])) {
     header( "Location: auth/login.php" );
   }
-  $search = htmlspecialchars( $_GET['search'] ?? '' );
+  $search = htmlspecialchars( $_GET[ 'search' ] ?? '' );
   
-  if($search != ''){
+  if(isset($search)){
     $stmt = $pdo->prepare( "SELECT * FROM products WHERE name LIKE :search OR keywords LIKE :search" );
     $stmt->execute([ ":search" => "%$search%" ]);
   } else {
@@ -82,7 +82,8 @@
             <div class="product-image-container">
               <img class="product-image"
                 alt="<?php echo htmlspecialchars($product['name']); ?>"
-                src="<?php echo $product['image']; ?>">
+                src="<?php echo $product['image']; ?>"
+              >
             </div> 
             <div class="product-name limit-text-to-2-lines" style="color: #333;">
               <?php echo htmlspecialchars($product['name']); ?>

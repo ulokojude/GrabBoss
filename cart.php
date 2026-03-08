@@ -1,15 +1,15 @@
 <?php
   session_start();
-  require("config/db.php");
-  require("data/products.php");
+  require( "config/db.php" );
+  require( "data/products.php" );
 
   if(!isset($_SESSION["user_id"])) {
-    header("Location: auth/login.php");
+    header( "Location: auth/login.php" );
     exit();
   }
 
   $user_id = $_SESSION['user_id'];
-  $orders = $pdo->prepare("SELECT * FROM orders WHERE user_id = ?");
+  $orders = $pdo->prepare( "SELECT * FROM orders WHERE user_id = ?" );
   $orders->execute([$user_id]);
   $subtotal = 0;
   
@@ -32,9 +32,9 @@
 
         <div class="collapse navbar-collapse" id="nav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a href="products.php" class="nav-link h6">Products</a></li>
-            <li class="nav-item"><a href="cart.php" class="nav-link text-light h6">Cart</a></li>
-            <li class="nav-item"><a href="auth/logout.php" class="nav-link text-danger h6">Logout</a></li>
+            <li class="nav-item"><a href=" products.php " class=" nav-link h6 ">Products</a></li>
+            <li class="nav-item"><a href="cart.php" class=" nav-link text-light h6 ">Cart</a></li>
+            <li class="nav-item"><a href=" auth/logout.php " class=" nav-link text-danger h6 ">Logout</a></li>
           </ul>
         </div>
       </div>

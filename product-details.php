@@ -3,12 +3,12 @@
   require( "config/db.php" );
   
   if(!isset($_SESSION[ "user_id" ])) {
-    header("Location: auth/login.php");
+    header( "Location: auth/login.php" );
     exit();
   }
 
   // Get product ID from URL hash
-  $productId = $_GET['id'] ?? '';
+  $productId = $_GET[ 'id' ] ?? '';
 
   //search for product in products array
   $productDetails = null;
@@ -21,7 +21,7 @@
 
   // Handle product not found
   if (!$productDetails || empty($productId)) {
-    header("Location: products.php");
+    header( "Location: products.php" );
     exit();
   }
 ?>
