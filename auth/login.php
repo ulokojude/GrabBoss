@@ -6,7 +6,7 @@
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
-      die("Invalid Request");
+      $_SESSION['token'] = bin2hex(random_bytes(32));
     }
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
