@@ -6,7 +6,15 @@
 
   $_SESSION['token'] = bin2hex(random_bytes(32));
 
+  if (empty($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+  } else {
+    // Regenerate token on each request for better security
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+  }
+
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // CSRF validation
     if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
       $_SESSION['token'] = bin2hex(random_bytes(32));
     }
@@ -16,17 +24,21 @@
       $message = "All fields are required";
       $mess = "alert-danger";
     } else {
-      $query = "SELECT * FROM users WHERE email='$email' LIMIT 1";
-      $result = mysqli_query($conn, $query);
-      if (mysqli_num_rows($result) == 1) {
-        $user = mysqli_fetch_assoc($result);
-        // Verify password
+      $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
+      $stmt->execute([$email]);
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
+      // Verify password
+      if ($user) {
+        // verify password using password_verify
         if(password_verify($password, $user["password"])) {
+          //regenerate session variables
+          session_regenerate_id(true); // Regenerate session ID for security
           $_SESSION['token'] = bin2hex(random_bytes(32)); // Regenerate token on login
+          // store user data in session
           $_SESSION["user_id"] = $user["id"];
           $_SESSION["user_name"] = $user["full_name"];
           $_SESSION["email"] = $user["email"];
-          session_regenerate_id(true); // Regenerate session ID for security
+
           header("Location: ../products.php");
           exit();
         } else {

@@ -9,7 +9,8 @@
   }
 
   $user_id = $_SESSION['user_id'];
-  $result = mysqli_query($conn, "SELECT * FROM orders WHERE user_id=$user_id");
+  $result = $pdo->prepare("SELECT * FROM orders WHERE user_id = ?");
+  $result->execute([$user_id]);
   $subtotal = 0;
   
 ?>
