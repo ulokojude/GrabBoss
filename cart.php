@@ -9,8 +9,8 @@
   }
 
   $user_id = $_SESSION['user_id'];
-  $result = $pdo->prepare("SELECT * FROM orders WHERE user_id = ?");
-  $result->execute([$user_id]);
+  $orders = $pdo->prepare("SELECT * FROM orders WHERE user_id = ?");
+  $orders->execute([$user_id]);
   $subtotal = 0;
   
 ?>
@@ -53,15 +53,11 @@
           </thead>
           <tbody>
             <?php 
-              if(mysqli_num_rows($result) > 0) {
-                while($row = mysqli_fetch_assoc($result)) {
-                  $product = null;
-                  foreach($products as $p) {
-                    if ($p['id'] == $row['product_id']){
-                      $product = $p;
-                      break;
-                    }
-                  }
+              if($orders > 0) {
+                foreach($orders as $row) {
+                  $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
+                  $stmt->execute([$row['product_id']]);
+                  $product = $stmt->fetch(PDO::FETCH_ASSOC);
                   if(!$product) continue;
                   $subtotal += $row['total_price'];
                   ?>
@@ -79,7 +75,7 @@
                     <td>
                       <input type="number" class="form-control quantity-input" 
                         value="<?php echo $row['quantity']; ?>"
-                        data-order-id="<?php echo $id['id'] ?>"
+                        data-order-id="<?php echo $row['id']; ?>"
                       >
                     </td>
                     <td>
