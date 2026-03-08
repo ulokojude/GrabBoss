@@ -27,6 +27,8 @@
       
       if($stmt->execute([$hashed, $email])) {
         unset($_SESSION['reset_email']);
+        session_regenerate_id(true); // Regenerate session ID for security
+        $_SESSION['token'] = bin2hex(random_bytes(32)); // Regenerate token on password reset
         header("Location: login.php");
         exit();
       } else {
@@ -60,6 +62,7 @@
           <?php echo $message ?>
         </div>
         <form action="" method="POST">
+          <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
           <div class="mb-3">
             <label for="" class="form-label">New password</label>
             <input type="password" name="password" class="form-control" placeholder="New Password" required>

@@ -8,24 +8,36 @@
     exit();
   }
   $user_id = $_SESSION['user_id'];
+  // Generate CSRF token if it doesn't exist
+  if (!isset($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+  }
   if ($_SERVER ["REQUEST_METHOD"] == "POST") {
+    // CSRF check
+    if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+      die("Invalid Request");
+    }
     $password = $_POST['password'];
     // Fetch user's hashed password from the database
     $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
     $stmt->execute([$user_id]);
-    $user = $stm->fetch(PDO::FETCH_ASSOC);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
     if($user) {
       if(password_verify($password, $user['password'])){
         //Delete account
         $del = $pdo->prepare("DELETE FROM users WHERE id = ?");
         $del->execute([$user_id]);
         session_destroy();
+        session_regenerate_id(true); // Regenerate session ID for security
         header("Location: login.php");
         exit();
       } else {
         $message = "Incorrect password";
         $mess = "alert-danger";
       }
+    } else {
+      $message = "User not found";
+      $mess = "alert-danger";
     }
   }
 ?>
@@ -49,6 +61,7 @@
               <?php echo $message; ?>
             </div>
             <form action="delete_acc.php" method="POST">
+              <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
               <div class="mb-3">
                 <label for="" class="form-label">
                   For your security verify password

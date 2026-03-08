@@ -5,6 +5,9 @@
   $mess = "";
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+      die("Invalid Request");
+    }
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
     if (empty($email) || empty($password)) {
@@ -17,9 +20,11 @@
         $user = mysqli_fetch_assoc($result);
         // Verify password
         if(password_verify($password, $user["password"])) {
+          $_SESSION['token'] = bin2hex(random_bytes(32)); // Regenerate token on login
           $_SESSION["user_id"] = $user["id"];
           $_SESSION["user_name"] = $user["full_name"];
           $_SESSION["email"] = $user["email"];
+          session_regenerate_id(true); // Regenerate session ID for security
           header("Location: ../products.php");
           exit();
         } else {
@@ -60,6 +65,10 @@
         </div> -->
         <form action="" method="post">
           <h4 class="text-center mb-3">GrabBoss</h4> 
+          <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+          <div class="text-center text-muted mb-4">
+            Login to your account
+          </div>
           <div class="alert <?php echo $mess; ?>">
             <?php echo $message ?>
           </div>

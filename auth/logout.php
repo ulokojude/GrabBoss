@@ -15,7 +15,6 @@
   // Finally destroy the session.
   session_destroy();
   
-  // Redirect to the login page (adjust path if your app base differs)
   header('Location: login.php');
   exit();
 ?>

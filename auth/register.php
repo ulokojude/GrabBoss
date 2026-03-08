@@ -5,6 +5,9 @@
   $diss = "";
 
   if($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+      die("Invalid Request");
+    }
     $full_name = trim($_POST["full_name"]);
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
@@ -37,6 +40,8 @@
         // change to PDO
         $stmt = $pdo->prepare("INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)");
         if ($stmt->execute([$full_name, $email, $hashed_password])) {
+          session_regenerate_id(true); // Regenerate session ID for security
+          $_SESSION['token'] = bin2hex(random_bytes(32)); // Regenerate token on registration
           header("Location: login.php");
           exit();
         } else {
@@ -70,6 +75,7 @@
         </p>
         <div class="alert <?php echo $mess; ?>"><?php echo $message; ?></div>
         <form action="register.php" method="POST">
+          <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
           <div class="row">
             <div class="col-12 col-md-6 p-2">
               <div class="mb-3">
