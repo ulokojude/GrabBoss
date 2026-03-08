@@ -4,6 +4,8 @@
   $message = "";
   $mess = "";
 
+  $_SESSION['token'] = bin2hex(random_bytes(32));
+
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
       $_SESSION['token'] = bin2hex(random_bytes(32));
