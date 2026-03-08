@@ -23,12 +23,12 @@
       $email = $_SESSION["reset_email"];
       
       //$query = "UPDATE users SET password = '$hashed' WHERE email= '$email'";
-      $stmt = $conn->prepare( "UPDATE users SET password = ? WHERE email = ?" );
-      $stmt->bind_param("ss", $hashed, $email);
-      if($stmt->execute()) {
+      $stmt = $pdo->prepare( "UPDATE users SET password = ? WHERE email = ?" );
+      
+      if($stmt->execute([$hashed, $email])) {
         unset($_SESSION['reset_email']);
         header("Location: login.php");
-      exit();
+        exit();
       } else {
         $message = "Password reset failed";
         $mess = "alert-danger";
