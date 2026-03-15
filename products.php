@@ -1,13 +1,13 @@
 <?php 
   session_start();
   include( "includes/header.php" );
- 
   require( "config/db.php" );
+  
   if(!isset($_SESSION[ "user_id" ])) {
     header( "Location: auth/login.php" );
   }
-  $search = htmlspecialchars( $_GET[ 'search' ] ?? '' );
-  
+
+  $search = htmlspecialchars( $_POST[ 'search' ] ?? '' );
   if(isset($search)){
     $stmt = $pdo->prepare( "SELECT * FROM products WHERE name LIKE :search OR keywords LIKE :search" );
     $stmt->execute([ ":search" => "%$search%" ]);
@@ -59,7 +59,7 @@
       <div class="amazon-header-middle-section">
         <input class="search-bar" type="text" name="search" 
           placeholder="Search" id="searchInput"
-          value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>"
+          value="<?php echo htmlspecialchars($_POST['search'] ?? ''); ?>"
         >
         <button class="search-button" id="searchButton">
           <img class="search-icon" alt="Search" src="images/icons/search-icon.png">

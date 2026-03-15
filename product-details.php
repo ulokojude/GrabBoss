@@ -53,7 +53,7 @@
     </nav>
 
     <section class="container py-5">
-      <div class="">
+      <div class="col-12 container">
         <div class="align-items-center mb-3">
           <img 
             class="img-fluid rounded" 
@@ -64,7 +64,7 @@
         </div>
         <div class="col-12 col-md-6">
           <h3><?php echo htmlspecialchars($productDetails['name']); ?></h3>
-          <!-- <p class="text">Category: (Category)</p> -->
+          <p class="text">Category:<?php htmlspecialchars($productDetails['category']); ?></p>
           <h4 class="text-success">
             N<?php echo htmlspecialchars(number_format($productDetails['priceCents'] / 10, 2)); ?>
           </h4>
@@ -79,6 +79,48 @@
           <a href="products.php" class="btn btn-outline-secondary">
             Back to products
           </a>
+        </div>
+
+        <!-- Related products -->
+        <div class="products-grid js-products-grid">
+          <?php foreach($filteredProducts as $product): ?>
+            <div class="product-container">
+              <div class="product-image-container">
+                <img class="product-image"
+                  alt="<?php echo htmlspecialchars($product['name']); ?>"
+                  src="<?php echo $product['image']; ?>"
+                >
+              </div> 
+              <div class="product-name limit-text-to-2-lines" style="color: #333;">
+                <?php echo htmlspecialchars($product['name']); ?>
+              </div>
+              <div class="product-rating-container">
+                <img class="product-rating-stars"
+                  src="images/ratings/rating-<?php echo $product['rating']['stars'] * 10; ?>.png">
+                <div class="product-rating-count link-primary">
+                  <?php echo $product['rating']['count']; ?>
+                </div>
+              </div>
+              <div class="product-price">
+                $<?php echo number_format($product['price'], 2); ?>
+              </div>
+              <a class="view-details-link" href="product-details.php?id=<?php echo $product['id']; ?>">
+                View details
+              </a>
+              <div class="product-spacer"></div>
+              <div class="added-to-cart">
+                <img src="images/icons/checkmark.png">
+                Added
+              </div>
+              <button 
+                class="add-to-cart-button button-primary js-add-to-cart-button"
+                data-product-id="<?php echo $product['id']; ?>">
+                Add to Cart
+              </button>
+            </div>
+          <?php endforeach; ?>
+        </div>
+
         </div>
       </div>
     </section>

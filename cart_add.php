@@ -7,8 +7,8 @@
   $user_id = $_SESSION['user_id'];
   $product_id = $_POST['product_id'] ?? 0;
 
-  //include product array to get price
-  include("data/products.php");
+  // //include product array to get price
+  // include("data/products.php");
 
   $price = 0;
   foreach ($products as $product) {

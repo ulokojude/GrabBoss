@@ -4,6 +4,7 @@
   $mess = "";
   $diss = "";
 
+  $_SESSION['token'] = bin2hex(random_bytes(32));
   if($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
       $_SESSION['token'] = bin2hex(random_bytes(32));
@@ -21,18 +22,17 @@
       $message = "Password do not match";
       $mess = "alert-danger";
       $diss = "disabled";
-    } 
-    elseif (strlen($password) <= 5) {
+    } elseif (strlen($password) <= 5) {
       $message = "Your password leght must be greater than 5 caracters";
       $mess = "alert-danger";
-    } 
+    }
     else {
       // Hash Password
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
       //chech if email exists
       $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
       $stmt->execute([$email]);
-      if (mysqli_num_rows($chech) > 0) {
+      if ($email > 0) {
         $message = "Email already registered";
         $mess = "alert-danger";
       } else {
@@ -42,7 +42,7 @@
         if ($stmt->execute([$full_name, $email, $hashed_password])) {
           session_regenerate_id(true); // Regenerate session ID for security
           $_SESSION['token'] = bin2hex(random_bytes(32)); // Regenerate token on registration
-          header("Location: login.php");
+          header( "Location: login.php" );
           exit();
         } else {
           $message = "Registration failed";
@@ -114,11 +114,12 @@
       </div>
     </div>
     <script>
-      const fullName = document.getElementById('full_name');
-      const email = document.getElementById('email');
-      const password = document.getElementById('password');
-      const confirmPassword = document.getElementById('confirm_password');
-      const registerBtn = document.getElementById('registerBtn');
+
+      const fullName = document.getElementById( 'full_name' );
+      const email = document.getElementById( 'email' );
+      const password = document.getElementById( 'password' );
+      const confirmPassword = document.getElementById( 'confirm_password' );
+      const registerBtn = document.getElementById( 'registerBtn' );
 
       function checkFields() {
         if (fullName.value.trim() !== "" &&
@@ -130,13 +131,12 @@
           registerBtn.disabled = true;
         }
       }
-
+      
       fullName.addEventListener('input', checkFields);
       email.addEventListener('input', checkFields);
       password.addEventListener('input', checkFields);
       confirmPassword.addEventListener('input', checkFields);
 
-      
     </script>
   </body>
 </html>

@@ -18,21 +18,22 @@
     $email = $_POST["email"];
     $user_id = $_SESSION["user_id"];
 
-    $sql = "UPDATE users SET name = ?, password = ?, email = ? WHERE id = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "ssss", $name, password_hash($password, PASSWORD_DEFAULT), $email, $user_id);
-    mysqli_stmt_execute($stmt);
-    if (mysqli_stmt_affected_rows($stmt) > 0) {
-      $_SESSION["user_name"] = $name;
-      $message = "Profile updated successfully";
-      $mess = "alert-success";
-      header("refresh:2; url=settings.php");
-      header("Location: settings.php");
-      exit();
-    } else {
-      $message = "Error updating profile";
-      $mess = "alert-danger";
-    }
+    $stmt = $pdo->prepare("UPDATE users SET name = ?, password = ?, email = ? WHERE id = ?");
+    $stmt->execute();
+    
+    // mysqli_stmt_bind_param($stmt, "ssss", $name, password_hash($password, PASSWORD_DEFAULT), $email, $user_id);
+    // mysqli_stmt_execute($stmt);
+    // if (mysqli_stmt_affected_rows($stmt) > 0) {
+    //   $_SESSION["user_name"] = $name;
+    //   $message = "Profile updated successfully";
+    //   $mess = "alert-success";
+    //   header("refresh:2; url=settings.php");
+    //   header("Location: settings.php");
+    //   exit();
+    // } else {
+    //   $message = "Error updating profile";
+    //   $mess = "alert-danger";
+    // }
   }
 ?>
 <!DOCTYPE html>
