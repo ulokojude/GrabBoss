@@ -1,13 +1,18 @@
 <?php
   include("../config/db.php");
+  session_start();
+
   $message = "";
   $mess = "";
   $diss = "";
 
-  $_SESSION['token'] = bin2hex(random_bytes(32));
+  if (empty($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+  }
+  
   if($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
-      $_SESSION['token'] = bin2hex(random_bytes(32));
+      die("Invalid CSRF token");
     }
     $full_name = trim($_POST["full_name"]);
     $email = trim($_POST["email"]);
@@ -22,8 +27,8 @@
       $message = "Password do not match";
       $mess = "alert-danger";
       $diss = "disabled";
-    } elseif (strlen($password) <= 5) {
-      $message = "Your password leght must be greater than 5 caracters";
+    } elseif (strlen($password) < 6) {
+      $message = "Your password must be at least 6 characters long";
       $mess = "alert-danger";
     }
     else {
@@ -31,7 +36,10 @@
       //chech if email exists
       $stmt = $pdo->prepare( "SELECT id FROM users WHERE email = ?" );
       $stmt->execute([$email]);
-      if ($email > 1) {
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $message = "Invalid email format";
+      }
+      if ($stmt->rowCount() > 0) {
         $message = "Email already registered";
         $mess = "alert-danger";
       } else {
@@ -72,14 +80,16 @@
         <p class="text-center text-muted mb-4">
           Register to start shopping
         </p>
-        <div class="alert <?php echo $mess; ?>"><?php echo $message; ?></div>
+        <?php if (!empty($message)): ?>
+          <div class="alert <?php echo $mess; ?>"><?php echo $message; ?></div>
+        <?php endif; ?>
         <form action="register.php" method="POST">
           <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
           <div class="row">
             <div class="col-12 col-md-6 p-2">
               <div class="mb-3">
-                <label for="" class="form-label">Full Nmae</label>
-                <input type="text" class="form-control" placeholder="Jogh Doe" name="full_name" id="full_name" required>
+                <label for="" class="form-label">Full Name</label>
+                <input type="text" class="form-control" placeholder="John Doe" name="full_name" id="full_name" required>
               </div>
               <div class="mb-3">
                 <label for="" class="form-label">Email</label>
@@ -100,7 +110,7 @@
           </div>
            <div class="">
               <div class="mb-3">
-                <button class="btn btn-success mt-2 w-100 <?php // button(); ?>" id="registerBtn" disabled>
+                <button class="btn btn-success mt-2 w-100 <?php // button(); ?>" id="registerBtn">
                   Register
                 </button>
               </div>
