@@ -3,10 +3,7 @@
   require( "config/db.php" );
   require( "data/products.php" );
 
-  if(!isset($_SESSION["user_id"])) {
-    header( "Location: auth/login.php" );
-    exit();
-  }
+  include( "auth/root_auth_chk.php" );
 
   $user_id = $_SESSION['user_id'];
   $orders = $pdo->prepare( "SELECT * FROM orders WHERE user_id = ?" );

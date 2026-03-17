@@ -27,22 +27,21 @@
       $mess = "alert-danger";
     }
     else {
-      // Hash Password
-      $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
       //chech if email exists
-      $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+      $stmt = $pdo->prepare( "SELECT id FROM users WHERE email = ?" );
       $stmt->execute([$email]);
-      if ($email > 0) {
+      if ($email > 1) {
         $message = "Email already registered";
         $mess = "alert-danger";
       } else {
         // Insert users
-        // change to PDO
-        $stmt = $pdo->prepare("INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)");
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare( "INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)" );
         if ($stmt->execute([$full_name, $email, $hashed_password])) {
           session_regenerate_id(true); // Regenerate session ID for security
           $_SESSION['token'] = bin2hex(random_bytes(32)); // Regenerate token on registration
-          header( "Location: login.php" );
+          header( "Location: ../products.php" );
           exit();
         } else {
           $message = "Registration failed";

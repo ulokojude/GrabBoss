@@ -2,10 +2,7 @@
   session_start();
   require( "config/db.php" );
   
-  if(!isset($_SESSION[ "user_id" ])) {
-    header( "Location: auth/login.php" );
-    exit();
-  }
+  include( "auth/root_auth_chk.php" );
 
   // Get product ID from URL hash
   $productId = $_GET[ 'id' ] ?? '';
