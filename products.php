@@ -49,10 +49,10 @@
       <div class="products-grid js-products-grid">
         <!-- catalogues goes here.. -->
         <?php include "auth/scripts/products_catalogue.php"; ?>
-        
+
       </div>
     </div>
-    <?php include("includes/footer.php"); ?>
+    <?php //include("includes/footer.php"); ?>
     <script src="auth/scripts/products.js"></script>
   </body>
 </html>
