@@ -10,8 +10,11 @@
       <?php echo htmlspecialchars($product['name']); ?>
     </div>
     <div class="product-rating-container">
-      <img class="product-rating-stars"
-        src="images/ratings/rating-<?php echo $product['rating']['stars'] * 10; ?>.png">
+      <a href="#">
+        <img class="product-rating-stars"
+          src="images/ratings/rating-<?php echo $product['rating']['stars'] * 10; ?>.png"
+        >
+      </a>
       <div class="product-rating-count link-primary">
         <?php echo $product['rating']['count']; ?>
       </div>
