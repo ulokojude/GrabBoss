@@ -20,22 +20,38 @@
     <title>Cart | GrabBoss</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container">
-        <a href="index.php" class="navbar-brand">GrabBoss</a>
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+      <!-- Brand -->
+      <a href="#" class="navbar-brand fw-bold">
+        Cart
+      </a>
 
-        <div class="collapse navbar-collapse" id="nav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a href=" products.php " class=" nav-link h6 ">Products</a></li>
+      <!-- Mobile toggle Button -->
+      <button
+        class="navbar-toggler" type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarMenu"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- nAVBAR LINK -->
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a href=" products.php " class=" nav-link h6 ">Products</a></li>
             <li class="nav-item"><a href="cart.php" class=" nav-link text-light h6 ">Cart</a></li>
             <li class="nav-item"><a href=" auth/logout.php " class=" nav-link text-danger h6 ">Logout</a></li>
-          </ul>
-        </div>
+
+        </ul>
       </div>
-    </nav>
+    </div>
+  </nav>
+  <style>
+    body {
+      padding-top: 56px;
+    }
+  </style>
 
     <section class="container py-5">
       <h3 class="mb-4">Shopping Cart</h3>
@@ -142,5 +158,6 @@
       });
     </script>
     <?php //include "includes/footer.php"; ?>
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
   </body>
 </html>

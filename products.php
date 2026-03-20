@@ -1,21 +1,4 @@
-<?php 
-  session_start();
-  include( "includes/header.php" );
-  require( "config/db.php" );
-  require( "in/rate_star.php" );
-  
-  include( "auth/root_auth_chk.php" );
-
-  $search = htmlspecialchars( $_POST[ 'search' ] ?? '' );
-  if(isset($search)){
-    $stmt = $pdo->prepare( "SELECT * FROM products WHERE name LIKE :search OR keywords LIKE :search" );
-    $stmt->execute([ ":search" => "%$search%" ]);
-  } else {
-    $stmt = $pdo->prepare( "SELECT * FROM products" );
-    $stmt->execute();
-  }
-  $filteredProducts = $stmt->fetchALL(PDO::FETCH_ASSOC);
-?>
+<?php include "auth/scripts/products_script.php"; ?>
 
 <!DOCTYPE html>
 <html>
@@ -30,20 +13,9 @@
     <link rel="stylesheet" href="styles/general.css">
     <link rel="stylesheet" href="styles/grabboss-header.css">
     <link rel="stylesheet" href="styles/grabboss.css">
+    <link rel="stylesheet" href="styles/products.css">
     <!-- <link rel="stylesheet" href="/styles/trans.css"> -->
-    <style>
-      .view-details-link {
-        color: #0d6efd;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.2s ease;
-      }
 
-      .view-details-link:hover {
-        color: #0a58ca;
-        text-decoration: underline;
-      }
-    </style>
   </head>
   <body>
     <div class="amazon-header">
@@ -58,7 +30,7 @@
       <div class="amazon-header-middle-section">
         <input class="search-bar" type="text" name="search" 
           placeholder="Search" id="searchInput"
-          value="<?php echo htmlspecialchars($_POST['search'] ?? ''); ?>"
+          value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>"
         >
         <button class="search-button" id="searchButton">
           <img class="search-icon" alt="Search" src="images/icons/search-icon.png">
@@ -76,92 +48,12 @@
     <div class="main">
       <div class="products-grid js-products-grid">
         <!-- catalogues goes here.. -->
-        <?php foreach($filteredProducts as $product): ?>
-          <div class="product-container">
-            <div class="product-image-container">
-              <img class="product-image"
-                alt="<?php echo htmlspecialchars($product['name']); ?>"
-                src="<?php echo $product['image']; ?>"
-              >
-            </div> 
-            <div class="product-name limit-text-to-2-lines" style="color: #333;">
-              <?php echo htmlspecialchars($product['name']); ?>
-            </div>
-            <div class="product-rating-container">
-              <img class="product-rating-stars"
-                src="images/ratings/rating-<?php echo $product['rating']['stars'] * 10; ?>.png">
-              <div class="product-rating-count link-primary">
-                <?php echo $product['rating']['count']; ?>
-              </div>
-            </div>
-            <div class="product-price">
-              $<?php echo number_format($product['price'], 2); ?>
-            </div>
-            <a class="view-details-link" href="product-details.php?id=<?php echo $product['id']; ?>">
-              View details
-            </a>
-            <div class="product-spacer"></div>
-            <div class="added-to-cart">
-              <img src="images/icons/checkmark.png">
-              Added
-            </div>
-            <button 
-              class="add-to-cart-button button-primary js-add-to-cart-button"
-              data-product-id="<?php echo $product['id']; ?>">
-              Add to Cart
-            </button>
-          </div>
-        <?php endforeach; ?>
+        <?php include "auth/scripts/products_catalogue.php"; ?>
+        
       </div>
     </div>
     <?php include("includes/footer.php"); ?>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const searchInput = document.querySelector('#searchInput');
-        const searchButton = document.querySelector( '#searchButton' );
-        // Handle search button click
-        searchButton.addEventListener('click', (e) => {
-          e.preventDefault();
-          performSearch();
-        });
-        // Handle enter key in search input
-        searchInput.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            performSearch();
-          }
-        });
-        
-        function performSearch() {
-          const query = searchInput.value.trim();
-          if (query) {
-            window.location.href = `products.php?search=${ encodeURIComponent(query) }`;
-          } else {
-            window.location.href = 'products.php';
-          }
-        }
-      });
-
-      $(document).ready(function(){
-        // Add to cart button
-        $(".js-add-to-cart-button").click(function(){
-          var button = $(this);
-          var productId = button.data("product-id");
-          $.post("cart_add.php", {product_id: productId}, function(res){
-            //show added message
-            button.siblings(".added-to-cart").fadeIn().delay(1000).fadeOut();
-            //update cart quantity in header
-            $.get("cart_quantity.php", function(data){
-              $(".js-cart-quantity").text(data);
-            }, "json");
-          });
-          // Load cart quantity on page load
-          $.get("cart_quantity.php", function(data){
-            $(".js-cart-quantity").text(data);
-          });
-        });
-      });
-    </script>
+    <script src="auth/scripts/products.js"></script>
   </body>
 </html>
 
