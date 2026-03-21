@@ -15,7 +15,7 @@
       $result = mysqli_query($conn, $query);
       if(mysqli_num_rows($result) == 1) {
         $_SESSION['token'] = bin2hex(random_bytes(32)); // Generate token for password reset
-        session_regenerate_id(true); // Regenerate session ID for security
+        // session_regenerate_id(true); // Regenerate session ID for security
         $_SESSION["reset_email"] = $email;
         header("Location: reset-password.php");
         exit();

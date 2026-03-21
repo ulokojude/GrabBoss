@@ -26,7 +26,7 @@
         </div> -->
         <form action="" method="post">
           <h4 class="text-center mb-3">GrabBoss</h4> 
-          <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+          <!-- <input type="hidden" name="token" value="<?php //echo $_SESSION['token']; ?>"> -->
           <div class="text-center text-muted mb-4">
             Login to your account
           </div>
