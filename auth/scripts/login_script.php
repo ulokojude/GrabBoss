@@ -18,40 +18,33 @@
     if (empty($email) || empty($password)) {
       $message = "All fields are required";
       $mess = "alert-danger";
-    } 
-    
-    if ($count > 0) {
+    } elseif ($count > 0) {
       $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
       $stmt->execute([$email]);
       $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
       if ($user) {
-
         if ($user['status'] == 0) {
-            $message = "Your account has been disabled.";
-            $mess = "alert-danger";
+          $message = "Your account has been disabled.";
+          $mess = "alert-danger";
+        } elseif (password_verify($password, $user["password"])) {
+
+          session_regenerate_id(true);
+          $_SESSION["user_id"] = $user["id"];
+          $_SESSION["user_name"] = $user["full_name"];
+          $_SESSION["email"] = $user["email"];
+
+          header("Location: ../products.php");
+          exit();
+
         } else {
-
-          if (password_verify($password, $user["password"])) {
-            session_regenerate_id(true);
-
-            $_SESSION["user_id"] = $user["id"];
-            $_SESSION["user_name"] = $user["full_name"];
-            $_SESSION["email"] = $user["email"];
-
-            header("Location: ../products.php");
-            exit();
-
-          } else {
-              $message = "Invalid email or password";
-              $mess = "alert-danger";
-            }
-          }
-
-      } else {
-        $message = "Invalid email or password";
-        $mess = "alert-danger";
+          $message = "Invalid email or password";
+          $mess = "alert-danger";
+        }
       }
+    } else {
+      $message = "Invalid email or password";
+      $mess = "alert-danger";
     }
   }
 ?>

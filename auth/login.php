@@ -24,7 +24,7 @@
         <!-- <div>
           <img src="../images/icons/logo.png" style="border-radius: 4px;" width="25%">
         </div> -->
-        <form action="" method="post">
+        <form action="" method="POST">
           <h4 class="text-center mb-3">GrabBoss</h4> 
           <!-- <input type="hidden" name="token" value="<?php //echo $_SESSION['token']; ?>"> -->
           <div class="text-center text-muted mb-4">
