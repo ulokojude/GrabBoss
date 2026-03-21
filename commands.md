@@ -1,0 +1,1 @@
+ALTER TABLE users ADD status TINYINT(1) DEFAULT 1;
