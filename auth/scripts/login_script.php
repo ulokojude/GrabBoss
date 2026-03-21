@@ -27,8 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    // Verify password
     if ($user) {
+      // Verify if account is disabled
+      if ($user['status'] == 0) {
+        $message = "Your account has been disabled.";
+        $mess = "alert-danger";
+        exit;
+      } // else continue;
       // verify password using password_verify
       if(password_verify($password, $user["password"])) {
         //regenerate session variables
