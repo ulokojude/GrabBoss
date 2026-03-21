@@ -13,7 +13,8 @@
     if (empty($email) || empty($password)) {
       $message = "All fields are required";
       $mess = "alert-danger";
-    } else {
+    } 
+    else {
       $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
       $stmt->execute([$email]);
       $user = $stmt->fetch(PDO::FETCH_ASSOC);
