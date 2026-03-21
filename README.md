@@ -1,3 +1,6 @@
+[![💬 Chat on Element](https://img.shields.io/badge/💬%20Chat%20on%20Element-Join%20Now-0DBD8B?style=for-the-badge)](https://matrix.to/#/!eYMIGoHhrjYaeabjLx:matrix.org?via=matrix.org)
+
+<hr>
 🛒 E-Commerce Website
 
 A modern, responsive e-commerce web application built with PHP (PDO), MySQL, JavaScript (AJAX), and Bootstrap.
