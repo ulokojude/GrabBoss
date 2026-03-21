@@ -10,11 +10,17 @@
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
 
+    $stmt = $pdo->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
+    $stmt->execute(['email' => $email]);
+
+    $count = $stmt->fetchColumn();
+
     if (empty($email) || empty($password)) {
       $message = "All fields are required";
       $mess = "alert-danger";
     } 
-    else {
+    
+    if ($count > 0) {
       $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
       $stmt->execute([$email]);
       $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -27,10 +33,7 @@
         } else {
 
           if (password_verify($password, $user["password"])) {
-
             session_regenerate_id(true);
-
-            $_SESSION['token'] = bin2hex(random_bytes(32));
 
             $_SESSION["user_id"] = $user["id"];
             $_SESSION["user_name"] = $user["full_name"];
