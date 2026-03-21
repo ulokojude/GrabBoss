@@ -11,11 +11,15 @@
       $message = "Please enter your email";
       $mess = "alert-danger";
     } else {
-      $query = "SELECT id FROM users WHERE email='$email' LIMIT 1";
-      $result = mysqli_query($conn, $query);
-      if(mysqli_num_rows($result) == 1) {
-        $_SESSION['token'] = bin2hex(random_bytes(32)); // Generate token for password reset
-        // session_regenerate_id(true); // Regenerate session ID for security
+      $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? LIMIT 1");
+      $stmt->execute([$email]);
+
+      $count = $stmt->fetchColumn();
+
+      if($count == 1) {
+
+        session_regenerate_id(true);
+
         $_SESSION["reset_email"] = $email;
         header("Location: reset-password.php");
         exit();

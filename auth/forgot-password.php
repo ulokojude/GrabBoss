@@ -21,7 +21,7 @@
           <?php echo $message; ?>
         </div>
         <form action="forgot-password.php" method="POST">
-          <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+          
           <div class="mb-3">
             <label for="" class="form-label">Registered Email</label>
             <input type="text" name="email" class="form-control" placeholder="example@server.com" required>
