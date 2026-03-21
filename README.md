@@ -1,4 +1,4 @@
-[![💬 Chat on Element](https://img.shields.io/badge/💬%20Chat%20on%20Element-Join%20Now-0DBD8B?style=for-the-badge)](https://matrix.to/#grabboss:matrix.org)
+[![Chat on Element](https://img.shields.io/badge/💬%20Chat%20on%20Element-Join%20Now-0DBD8B?style=for-the-badge)](https://matrix.to/#/#grabboss:matrix.org))
 
 <hr>
 🛒 E-Commerce Website
