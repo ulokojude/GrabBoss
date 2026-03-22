@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     performSearch();
   });
-  // Handle enter key in search input
+  // Handle enter key in search_input
   searchInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
