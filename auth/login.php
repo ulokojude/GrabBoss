@@ -21,12 +21,9 @@
   <body class="bg-light">
     <div class="container vh-100 d-flex align-items-center justify-content-center">
       <div class="card p-4 shadow-lg w-100" style="max-width: 400px;"> 
-        <!-- <div>
-          <img src="../images/icons/logo.png" style="border-radius: 4px;" width="25%">
-        </div> -->
         <form action="" method="POST">
           <h4 class="text-center mb-3">GrabBoss</h4> 
-          <!-- <input type="hidden" name="token" value="<?php //echo $_SESSION['token']; ?>"> -->
+          
           <div class="text-center text-muted mb-4">
             Login to your account
           </div>
