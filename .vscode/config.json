@@ -1,4 +1,3 @@
 {
-  "files.autoSave": "afterDelay",
-  "php.validate.executablePath": "C:/php/php.exe"
+  "files.autoSave": "afterDelay"
 }

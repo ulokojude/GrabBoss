@@ -4,10 +4,15 @@
 
   $message = "";
   $mess = "";
+  $debug_info = "";
 
   if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $email = trim($_POST["email"]);
     $password = trim($_POST["password"]);
+
+    $debug_info .= "<hr><strong>DEBUG INFO:</strong><br>";
+    $debug_info .= "Email submitted: " . htmlspecialchars($email) . "<br>";
+    $debug_info .= "Password submitted: " . str_repeat("*", strlen($password)) . " (length: " . strlen($password) . ")<br>";
 
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
     $stmt->execute([$email]);
@@ -16,28 +21,41 @@
     if (empty($email) || empty($password)) {
       $message = "All fields are required";
       $mess = "alert-danger";
+      $debug_info .= "❌ Empty fields detected<br>";
 
     } elseif (!$user) {
       $message = "Invalid email or password";
       $mess = "alert-danger";
+      $debug_info .= "❌ User not found in database<br>";
 
     } elseif ($user['status'] == 0) {
       $message = "Your account has been disabled.";
       $mess = "alert-danger";
-
-    } elseif (!password_verify($password, $user["password"])) {
-      $message = "Invalid email or password";
-      $mess = "alert-danger";
+      $debug_info .= "❌ Account disabled<br>";
 
     } else {
-      session_regenerate_id(true);
+      $debug_info .= "✓ User found in database<br>";
+      $debug_info .= "Stored hash: " . substr($user["password"], 0, 20) . "... (length: " . strlen($user["password"]) . ")<br>";
+      $debug_info .= "Hash format: " . (strpos($user["password"], '$2y$') === 0 ? '✓ bcrypt ($2y$)' : '❌ Not bcrypt') . "<br>";
+      
+      $password_check = password_verify($password, $user["password"]);
+      $debug_info .= "password_verify result: " . ($password_check ? "✓ TRUE (Password matches!)" : "❌ FALSE (Password mismatch)") . "<br>";
+      $debug_info .= "PHP version: " . phpversion() . "<br>";
 
-      $_SESSION["user_id"] = $user["id"];
-      $_SESSION["user_name"] = $user["full_name"];
-      $_SESSION["email"] = $user["email"];
+      if (!password_verify($password, $user["password"])) {
+        $message = "Invalid email or password";
+        $mess = "alert-danger";
 
-      header("Location: ../products.php");
-      exit();
+      } else {
+        session_regenerate_id(true);
+
+        $_SESSION["user_id"] = $user["id"];
+        $_SESSION["user_name"] = $user["full_name"];
+        $_SESSION["email"] = $user["email"];
+
+        header("Location: ../products.php");
+        exit();
+      }
     }
   }
 
@@ -59,12 +77,21 @@
         box-shadow: none;
         border-color: skyblue;
       }
+      .debug-box {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        padding: 15px;
+        margin-top: 20px;
+        font-family: monospace;
+        font-size: 12px;
+      }
     </style>
   </head>
   <body class="bg-light">
     <div class="container vh-100 d-flex align-items-center justify-content-center">
       <div class="card p-4 shadow-lg w-100" style="max-width: 400px;"> 
-        <form action="login.php" method="POST">
+        <form action="login_debug.php" method="POST">
           <h4 class="text-center mb-3">GrabBoss</h4> 
           
           <div class="text-center text-muted mb-4">
@@ -110,10 +137,15 @@
             </p>
           </div>
         </form>
+
+        <?php if (!empty($debug_info)): ?>
+        <div class="debug-box">
+          <?php echo $debug_info; ?>
+        </div>
+        <?php endif; ?>
       </div>
     </div>
     <script>
-      // make the password hidden and plain
       const passwordInput = document.getElementById("password");
       const togglePassword = document.querySelector(".input-group-text");
       const icon = togglePassword.querySelector("i");
@@ -126,5 +158,3 @@
     </script>
   </body>
 </html>
-
-
