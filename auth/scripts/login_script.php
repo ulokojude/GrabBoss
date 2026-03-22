@@ -1,50 +1,30 @@
-<?php 
-  session_start();
-  include("../config/db.php");
+$stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
+$stmt->execute([$email]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  $message = "";
-  $mess = "";
+if (empty($email) || empty($password)) {
+  $message = "All fields are required";
+  $mess = "alert-danger";
 
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+} elseif (!$user) {
+  $message = "Invalid email or password";
+  $mess = "alert-danger";
 
-    $email = trim($_POST["email"]);
-    $password = $_POST["password"];
+} elseif ($user['status'] == 0) {
+  $message = "Your account has been disabled.";
+  $mess = "alert-danger";
 
-    $stmt = $pdo->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
-    $stmt->execute(['email' => $email]);
+} elseif (!password_verify($password, $user["password"])) {
+  $message = "Invalid email or password";
+  $mess = "alert-danger";
 
-    $count = $stmt->fetchColumn();
+} else {
+  session_regenerate_id(true);
 
-    if (empty($email) || empty($password)) {
-      $message = "All fields are required";
-      $mess = "alert-danger";
-    } elseif ($count > 0) {
-      $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
-      $stmt->execute([$email]);
-      $user = $stmt->fetch(PDO::FETCH_ASSOC);
+  $_SESSION["user_id"] = $user["id"];
+  $_SESSION["user_name"] = $user["full_name"];
+  $_SESSION["email"] = $user["email"];
 
-      if ($user) {
-        if ($user['status'] == 0) {
-          $message = "Your account has been disabled.";
-          $mess = "alert-danger";
-        } elseif (password_verify($password, $user["password"])) {
-
-          session_regenerate_id(true);
-          $_SESSION["user_id"] = $user["id"];
-          $_SESSION["user_name"] = $user["full_name"];
-          $_SESSION["email"] = $user["email"];
-
-          header("Location: ../products.php");
-          exit();
-
-        } else {
-          $message = "Invalid email or password";
-          $mess = "alert-danger";
-        }
-      }
-    } else {
-      $message = "Invalid email or password";
-      $mess = "alert-danger";
-    }
-  }
-?>
+  header("Location: ../products.php");
+  exit();
+}
