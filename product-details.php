@@ -1,4 +1,33 @@
-<?php include "auth/scripts/product_details_script.php"; ?>
+<?php 
+  session_start();
+  require( "config/db.php" );
+  
+  if(!isset($_SESSION[ "user_id" ])) {
+    header( "Location: auth/login.php" );
+  }
+
+  // Get product ID from URL hash
+  $productId = $_GET[ 'id' ] ?? '';
+
+  $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
+  $stmt->execute([$productId]);
+  $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  //search for product in products array
+  $productDetails = null;
+  foreach($products as $product) {
+    if ($product['id'] === $productId) {
+      $productDetails = $product;
+      break;
+    }
+  }
+
+  // Handle product not found
+  if (/*!$productDetails ||*/ empty($productId)) {
+    header( "Location: products.php" );
+    exit();
+  }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,29 +85,29 @@
         </div>
 
         <!-- Related products -->
-        <div class="products-grid js-products-grid">
-          <?php foreach($filteredProducts as $product): ?>
+        <!-- <div class="products-grid js-products-grid">
+          <?php //foreach($filteredProducts as $product): ?>
             <div class="product-container">
               <div class="product-image-container">
                 <img class="product-image"
-                  alt="<?php echo htmlspecialchars($product['name']); ?>"
-                  src="<?php echo $product['image']; ?>"
+                  alt="<?php //echo htmlspecialchars($product['name']); ?>"
+                  src="<?php //echo $product['image']; ?>"
                 >
               </div> 
               <div class="product-name limit-text-to-2-lines" style="color: #333;">
-                <?php echo htmlspecialchars($product['name']); ?>
+                <?php //echo htmlspecialchars($product['name']); ?>
               </div>
               <div class="product-rating-container">
                 <img class="product-rating-stars"
-                  src="images/ratings/rating-<?php echo $product['rating']['stars'] * 10; ?>.png">
+                  src="images/ratings/rating-<?php //echo $product['rating']['stars'] * 10; ?>.png">
                 <div class="product-rating-count link-primary">
-                  <?php echo $product['rating']['count']; ?>
+                  <?php //echo $product['rating']['count']; ?>
                 </div>
               </div>
               <div class="product-price">
-                $<?php echo number_format($product['price'], 2); ?>
+                $<?php //echo number_format($product['price'], 2); ?>
               </div>
-              <a class="view-details-link" href="product-details.php?id=<?php echo $product['id']; ?>">
+              <a class="view-details-link" href="product-details.php?id=<?php //echo $product['id']; ?>">
                 View details
               </a>
               <div class="product-spacer"></div>
@@ -88,12 +117,12 @@
               </div>
               <button 
                 class="add-to-cart-button button-primary js-add-to-cart-button"
-                data-product-id="<?php echo $product['id']; ?>">
+                data-product-id="<?php //echo $product['id']; ?>">
                 Add to Cart
               </button>
             </div>
-          <?php endforeach; ?>
-        </div>
+          <?php //endforeach; ?>
+        </div> -->
 
         </div>
       </div>
