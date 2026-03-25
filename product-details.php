@@ -13,17 +13,8 @@
   $stmt->execute([$productId]);
   $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  //search for product in products array
-  $productDetails = null;
-  foreach($products as $product) {
-    if ($product['id'] === $productId) {
-      $productDetails = $product;
-      break;
-    }
-  }
-
   // Handle product not found
-  if (/*!$productDetails ||*/ empty($productId)) {
+  if (empty($productId)) {
     header( "Location: products.php" );
     exit();
   }
@@ -60,21 +51,21 @@
         <div class="align-items-center mb-3">
           <img 
             class="img-fluid rounded" 
-            alt="<?php echo htmlspecialchars($productDetails['name']); ?>"
-            src="<?php echo htmlspecialchars($productDetails['image']); ?>" 
+            alt="<?php echo htmlspecialchars($product['name']); ?>"
+            src="<?php echo htmlspecialchars($product['image']); ?>" 
             width="90px"
           >
         </div>
         <div class="col-12 col-md-6">
-          <h3><?php echo htmlspecialchars($productDetails['name']); ?></h3>
-          <p class="text">Category:<?php htmlspecialchars($productDetails['category']); ?></p>
+          <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+          <p class="text">Category:<?php htmlspecialchars($product['category']); ?></p>
           <h4 class="text-success">
-            N<?php echo htmlspecialchars(number_format($productDetails['priceCents'] / 10, 2)); ?>
+            N<?php echo htmlspecialchars(number_format($product['price'] / 10, 2)); ?>
           </h4>
           <p class="mt-3"></p>
           <div class="mb-3">
             <img class="product-rating-stars"
-              src="images/ratings/rating-<?php echo $product['rating']['stars'] * 10; ?>.png">
+              src="images/ratings/rating-<?php echo $product['rating'] * 10; ?>.png">
           </div>
           <button class="btn btn-primary me-2" data-product-id="<?php echo $productDetails['id']; ?>">
             Add to Cart

@@ -1,27 +1,3 @@
-<?php 
-  session_start();
-  include( "includes/header.php" );
-  include( "auth/root_auth_chk.php" );
-
-  $email = '';
-  $card_num = '';
-  $cvc = '';
-
-  $btn_wrt = 'Complete Purchase';
-
-  //$total_price = $_SESSION[''];
-
-  if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $email = $_POST["email"];
-    if ($email) {
-      $btn_wrt = "order submited. redirecting....";
-      $mess = "btn-sucess"; 
-      header("Location: order_sub.php");
-    }
-  }
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,7 +23,7 @@
           <h4 class="text-center mb-3">GrabBoss</h4> 
           
           <div class="text-center text-muted mb-4">
-            Input card Details
+            
           </div>
           <?php if (!empty($message)): ?>
             <div class="alert <?php echo $mess; ?>">
@@ -87,43 +63,12 @@
           
           <div class="mb-3">
             <!-- <button class="btn btn-secondary w-50 m-2">Cancle</button> -->
-            <button class="btn btn-danger w-100 m-2"><?php echo $btn_wrt; ?></button>
+            <!-- <button class="btn btn-danger w-100 m-2"><?php //echo $btn_wrt; ?></button> -->
           </div>
           
         </form>
       </div>
     </div>
-    <script>
-      document.getElementById('cn').addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 4 && value.length <= 8) {
-          value = value.slice(0, 4) + '  ' + value.slice(4);
-        } else if (value.length > 8 && value.length <= 12) {
-          value = value.slice(0, 4) + '  ' + value.slice(4, 8) + ' ' + value.slice(8);
-        } else if (value.length > 12) {
-          value = value.slice(0, 4) + '  ' + value.slice(4, 8) + '  ' + value.slice(8, 12) + '  ' + value.slice(12);
-        }
-        e.target.value = value;
-      });
-
-      document.getElementById('ed').addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length === 1 && parseInt(value) > 1) {
-          value = '0' + value;
-        }
-        if (value.length > 2 && value.length <= 4) {
-          let month = parseInt(value.slice(0, 2));
-          if (month > 12) value = '12' + value.slice(2);
-          value = value.slice(0, 2) + ' / ' + value.slice(2);
-        }
-        e.target.value = value;
-      });
-
-      document.getElementById('cvc').addEventListener('input', function(e) {
-        e.target.value = e.target.value.replace(/\D/g, '');
-      });
-
-    </script>
   </body>
 </html>
 
