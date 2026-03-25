@@ -1,6 +1,6 @@
 <?php 
   session_start();
-  require( "config/db.php" );
+  require_once( "config/db.php" );
   
   if(!isset($_SESSION[ "user_id" ])) {
     header( "Location: auth/login.php" );
@@ -17,6 +17,39 @@
   if (empty($productId)) {
     header( "Location: products.php" );
     exit();
+  }
+
+  $keywords = $product['keywords'];
+
+  $stmt = $pdo->prepare("
+    SELECT * FROM products
+    WHERE keywords LIKE :keywords
+    AND id != :id
+    LIMIT 4
+  ");
+
+  $stmt->execute([
+    ':keywords' => "%$keywords%",
+    ':id' => $productId
+  ]);
+
+  $relatedProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  if (isset($_POST['add_to_cart'])) {
+    $productId = $_POST['productId'];
+
+    // Initialise cart if not exist
+    if (!isset($_SESSION['cart'])) {
+      $_SESSION['cart'] = [];
+    }
+
+    // if product in cart, increase quantity
+    if (isset($_SESSION['cart'][$productId])) {
+      $_SESSION['cart'][$productId]++;
+    } else {
+      $_SESSION['cart'][$productId] = 1;
+    }
+    echo "<script>alert('product added to cart');</script>";
   }
 ?>
 
@@ -52,7 +85,7 @@
           <img 
             class="img-fluid rounded" 
             alt="<?php echo htmlspecialchars($product['name']); ?>"
-            src="<?php echo htmlspecialchars($product['image']); ?>" 
+            src="../GrabBoss_admin/<?php echo htmlspecialchars($product['image']); ?>" 
             width="90px"
           >
         </div>
@@ -67,53 +100,54 @@
             <img class="product-rating-stars"
               src="images/ratings/rating-<?php echo $product['rating'] * 10; ?>.png">
           </div>
-          <button class="btn btn-primary me-2" data-product-id="<?php echo $productDetails['id']; ?>">
-            Add to Cart
-          </button>
-          <a href="products.php" class="btn btn-outline-secondary">
-            Back to products
-          </a>
-        </div>
-
-        <!-- Related products -->
-        <!-- <div class="products-grid js-products-grid">
-          <?php //foreach($filteredProducts as $product): ?>
-            <div class="product-container">
-              <div class="product-image-container">
-                <img class="product-image"
-                  alt="<?php //echo htmlspecialchars($product['name']); ?>"
-                  src="<?php //echo $product['image']; ?>"
-                >
-              </div> 
-              <div class="product-name limit-text-to-2-lines" style="color: #333;">
-                <?php //echo htmlspecialchars($product['name']); ?>
-              </div>
-              <div class="product-rating-container">
-                <img class="product-rating-stars"
-                  src="images/ratings/rating-<?php //echo $product['rating']['stars'] * 10; ?>.png">
-                <div class="product-rating-count link-primary">
-                  <?php //echo $product['rating']['count']; ?>
-                </div>
-              </div>
-              <div class="product-price">
-                $<?php //echo number_format($product['price'], 2); ?>
-              </div>
-              <a class="view-details-link" href="product-details.php?id=<?php //echo $product['id']; ?>">
-                View details
-              </a>
-              <div class="product-spacer"></div>
-              <div class="added-to-cart">
-                <img src="images/icons/checkmark.png">
-                Added
-              </div>
-              <button 
-                class="add-to-cart-button button-primary js-add-to-cart-button"
-                data-product-id="<?php //echo $product['id']; ?>">
+          <div class="d-flex g-2">
+            <form method="POST">
+              <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+              <button class="btn btn-primary me-2" type="submit">
                 Add to Cart
               </button>
+            </form>
+            <a href="products.php" class="btn btn-outline-secondary">
+              Back to products
+            </a>
+          </div>
+        </div>
+
+        <?php 
+          if (count($relatedProducts) > 0) {
+            $sentence = "Related Products";
+          } else {
+            $sentence = "";
+          }
+        ?>
+
+        <!-- Related products -->
+        <h4 class="mt-5 mb-3"><?php echo $sentence; ?></h4>
+
+        <div class="row">
+          <?php foreach ($relatedProducts as $item): ?>
+            <div class="col-6 col-md-4 col-lg-3 mb-3">
+              <div class="card h-100 shadow-sm">
+                <img src="<?php echo $item['image']; ?>"
+                  class="card-img-top"
+                  style="height:180px; object-fit:cover;" 
+                >
+                <div class="card-body d-flex flex-column">
+                  <h6 class="card-title">
+                    <?php echo htmlspecialchars($item['name']); ?>
+                  </h6>
+                  <p class="text-primary fw-bold">
+                    N<?php echo number_format($item['price']); ?>
+                  </p>
+                  <a href="product-details.php?id=<?php echo $item['id']; ?>"
+                    class="btn btn-sm btn-outline-primary mt-auto"> View Details
+                  </a>
+                </div>
+
+              </div>
             </div>
-          <?php //endforeach; ?>
-        </div> -->
+          <?php endforeach; ?>
+        </div>
 
         </div>
       </div>

@@ -1,14 +1,16 @@
 <?php
   session_start();
   require( "config/db.php" );
-  require( "data/products.php" );
 
   include( "auth/root_auth_chk.php" );
 
   $user_id = $_SESSION['user_id'];
-  $orders = $pdo->prepare( "SELECT * FROM orders WHERE user_id = ?" );
-  $orders->execute([$user_id]);
-  $subtotal = 0;
+
+  if (!empty($cart)) {
+    $ids = implode(',', array_keys($cart));
+    $stmt = $pdo->prepare( "SELECT * FROM products WHERE id IN ($ids)" );
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
   
 ?>
 <!DOCTYPE html>
@@ -65,60 +67,53 @@
             <th></th>
           </thead>
           <tbody>
-            <?php 
-              if($orders > 0) {
-                foreach($orders as $row) {
-                  $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
-                  $stmt->execute([$row['product_id']]);
-                  $product = $stmt->fetch(PDO::FETCH_ASSOC);
-                  if(!$product) continue;
-                  $subtotal += $row['total_price'];
-                  ?>
-                  <tr>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <img src="<?php echo $product['images'] ?>"
-                          width="50px" class="rounded me-2 shadow"
-                          alt="<?php echo $product['name']; ?>"
-                        >
-                        <span><?php echo $product["name"]; ?></span>
-                      </div>
-                    </td>
-                    <td>N<?php echo number_format($row['price']); ?></td>
-                    <td>
-                      <input type="number" class="form-control quantity-input" 
-                        value="<?php echo $row['quantity']; ?>"
-                        data-order-id="<?php echo $row['id']; ?>"
+            <?php
+              foreach($orders as $row) {
+                $quantity = $cart[$product['id']];
+                $total = $product['price'] * $quantity;
+                ?>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="<?php echo $product['images'] ?>"
+                        width="50px" class="rounded me-2 shadow"
+                        alt="<?php echo $product['name']; ?>"
                       >
-                    </td>
-                    <td>
-                      N<?php echo number_format($row['total_price']); ?>
-                    </td>
-                    <td>
-                      <button class="btn btn-sm btn-danger remove-btn" data-order-id="<?php echo $row['id']; ?>">
-                        Remove
-                      </button>
-                    </td>
-                  </tr>
-                  <?php
-                }
-              } else {
-                  echo '<tr><td colspan="5" class="text-center text-muted py-3">Your cart is empty</td></tr>';
+                      <span><?php echo $product["name"]; ?></span>
+                    </div>
+                  </td>
+                  <td>N<?php echo $product['price']; ?></td>
+                  <td>
+                    <input type="number" class="form-control quantity-input" 
+                      value="<?php echo $product; ?>"
+                      data-order-id="<?php echo $row['id']; ?>"
+                    >
+                  </td>
+                  <td>
+                    N<?php echo $total; ?>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-danger remove-btn" data-order-id="<?php echo $row['id']; ?>">
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+                <?php
               }
             ?>
           </tbody>
         </table>
       </div>
     </section>
-
+    <?php $count = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; ?>
     <div class="row justify-content-center p-4 mt-4">
       <div class="col-12 col-md-4">
         <div class="card p-3 shadow-sm">
           <h5>Cart Summary</h5>
           <hr>
           <p class="d-flex justify-content-between">
-            <span>Subtotal</span>
-            <strong>N<?php echo number_format($subtotal); ?></strong>
+            <span>Total Products</span>
+            <strong><?php echo $count; ?></strong>
           </p>
           <p class="d-flex justify-content-between">
             <span>Delivery</span>
