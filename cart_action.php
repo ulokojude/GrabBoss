@@ -7,11 +7,16 @@
   $action = $_POST[ 'action' ] ?? '';
   $order_id = $_POST['order_id'] ?? 0;
 
-if ($_POST['action'] == 'remove') {
-  unset($_SESSION['cart'][$_POST['product_id']]);
-}
+  if ($_POST['action'] == 'remove') {
+    $id = $_POST['product_id'];
 
-if ($_POST['action'] == 'update') {
-  $_SESSION['cart'][$_POST['product_id']] = $_POST['quantity'];
-}
+    if (isset($_SESSION['cart'][$id])) {
+      unset($_SESSION['cart'][$id]);
+    }
+    echo "<script>alert('product removed from cart');</script>";
+  }
+
+  if ($_POST['action'] == 'update') {
+    $_SESSION['cart'][$_POST['product_id']] = $_POST['quantity'];
+  }
 ?>

@@ -101,12 +101,12 @@
               src="images/ratings/rating-<?php echo $product['rating'] * 10; ?>.png">
           </div>
           <div class="d-flex g-2">
-            <form method="POST">
+            <form method="POST" action="products.php">
               <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-              <button class="btn btn-primary me-2" type="submit">
+              <button class="btn btn-primary me-2" name="add_to_cart" type="submit">
                 Add to Cart
               </button>
-            </form>
+          </form>
             <a href="products.php" class="btn btn-outline-secondary">
               Back to products
             </a>

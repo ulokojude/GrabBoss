@@ -146,10 +146,12 @@
         </div>
       </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       $(document).ready(function(){
         // Remove item
         $(".remove-btn").click(function(){
+          var btn = $(this);
           var productId = $(this).data("id");
 
           if(confirm("Remove this item from cart?")){
