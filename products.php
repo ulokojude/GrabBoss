@@ -67,7 +67,34 @@
     <link rel="stylesheet" href="styles/grabboss.css">
     <link rel="stylesheet" href="styles/products.css">
     <!-- <link rel="stylesheet" href="/styles/trans.css" -->
+    <style>
+      .btn {
+        display: inline-block;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle;
+        cursor: pointer;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        border-radius: 0.25rem;
+        transition: all 0.15s ease-in-out;
+      }
 
+      .btn-primary {
+        color: #fff;
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+      }
+
+      .btn-primary:focus {
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
+      }
+    </style>
   </head>
   <body>
     <div class="amazon-header">
@@ -135,7 +162,7 @@
             </div>
            <form method="POST" action="products.php">
               <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-              <button class="btn btn-primary me-2" name="add_to_cart" type="submit">
+              <button class="btn btn-primary" name="add_to_cart" type="submit">
                 Add to Cart
               </button>
           </form>
