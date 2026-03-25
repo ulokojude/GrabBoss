@@ -142,27 +142,39 @@ if (!empty($cart)) {
       </div>
     </div>
     <script>
-      $(document).ready(function(){
-        //remove item
-        $(".remove-btn").click(function(){
-          var orderId = $(this).data("order-id");
-          if(confirm("Remove this item from cart?")){
-            $.post("cart_action.php",{action:"remove", order_id:orderId}, function(){
-              location.reload();
-            });
-          }
-        });
+$(document).ready(function(){
 
-        // Upload quantity
-        $(".quantity-input").change(function(){
-          var orderId = $(this).data("order-id");
-          var qty = $(this).val();
-          if(qty < 1) qty = 1;
-          $.post("cart_action.php", {action:"update", order_id:orderId, quantity:qty}, function(){
-            location.reload();
-          });
-        });
+  // Remove item
+  $(".remove-btn").click(function(){
+    var productId = $(this).data("id");
+
+    if(confirm("Remove this item from cart?")){
+      $.post("cart_action.php", {
+        action: "remove",
+        product_id: productId
+      }, function(){
+        location.reload();
       });
+    }
+  });
+
+  // Update quantity
+  $(".quantity-input").change(function(){
+    var productId = $(this).data("id");
+    var qty = $(this).val();
+
+    if(qty < 1) qty = 1;
+
+    $.post("cart_action.php", {
+      action: "update",
+      product_id: productId,
+      quantity: qty
+    }, function(){
+      location.reload();
+    });
+  });
+
+});
     </script>
     <?php //include "includes/footer.php"; ?>
     <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
