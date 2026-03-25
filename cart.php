@@ -73,42 +73,47 @@ if (!empty($cart)) {
             <th>Total</th>
             <th></th>
           </thead>
-          <tbody>
-            <?php
-              foreach($orders as $row) {
-                $quantity = $cart[$product['id']];
-                $total = $product['price'] * $quantity;
-                ?>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img src="<?php echo $product['images'] ?>"
-                        width="50px" class="rounded me-2 shadow"
-                        alt="<?php echo $product['name']; ?>"
-                      >
-                      <span><?php echo $product["name"]; ?></span>
-                    </div>
-                  </td>
-                  <td>N<?php echo $product['price']; ?></td>
-                  <td>
-                    <input type="number" class="form-control quantity-input" 
-                      value="<?php echo $product; ?>"
-                      data-order-id="<?php echo $row['id']; ?>"
-                    >
-                  </td>
-                  <td>
-                    N<?php echo $total; ?>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-danger remove-btn" data-order-id="<?php echo $row['id']; ?>">
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-                <?php
-              }
-            ?>
-          </tbody>
+<tbody>
+<?php foreach ($products as $product): 
+
+  $quantity = $cart[$product['id']];
+  $total = $product['price'] * $quantity;
+  $subtotal += $total;
+
+?>
+<tr>
+  <td>
+    <div class="d-flex align-items-center">
+      <img src="<?php echo $product['image']; ?>"
+        width="50" class="rounded me-2 shadow"
+        alt="<?php echo $product['name']; ?>"
+      >
+      <span><?php echo $product["name"]; ?></span>
+    </div>
+  </td>
+
+  <td>₦<?php echo number_format($product['price']); ?></td>
+
+  <td>
+    <input type="number" class="form-control quantity-input" 
+      value="<?php echo $quantity; ?>"
+      data-id="<?php echo $product['id']; ?>"
+      min="1"
+    >
+  </td>
+
+  <td>₦<?php echo number_format($total); ?></td>
+
+  <td>
+    <button class="btn btn-sm btn-danger remove-btn" 
+      data-id="<?php echo $product['id']; ?>">
+      Remove
+    </button>
+  </td>
+</tr>
+
+<?php endforeach; ?>
+</tbody>
         </table>
       </div>
     </section>
