@@ -1,21 +1,36 @@
 <?php
   session_start();
-  require( "config/db.php" );
+  require("config/db.php");
 
-  include( "auth/root_auth_chk.php" );
+  include("auth/root_auth_chk.php");
 
+    $user_id = $_SESSION['user_id'];
+    $cart = $_SESSION['cart'] ?? [];
+
+
+    if (!empty($cart)) {
+      $ids = implode(',', array_keys($cart));
+      $stmt = $pdo->query( "SELECT * FROM products WHERE id IN ($ids)" );
+      $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+  //$quantity = $cart[$product['id']];
+  // $total = $product['price'] * $quantity;
   $user_id = $_SESSION['user_id'];
+
+  // ✅ Define cart
   $cart = $_SESSION['cart'] ?? [];
 
+  $products = [];
+  $subtotal = 0;
 
   if (!empty($cart)) {
     $ids = implode(',', array_keys($cart));
-    $stmt = $pdo->query( "SELECT * FROM products WHERE id IN ($ids)" );
+
+    $stmt = $pdo->query("SELECT * FROM products WHERE id IN ($ids)");
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
-
-  //$quantity = $cart[$product['id']];
- // $total = $product['price'] * $quantity;
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,6 +121,44 @@
               }
             ?>
           </tbody>
+
+          <tbody>
+            <?php foreach ($products as $product): 
+              $quantity = $cart[$product['id']];
+              $total = $product['price'] * $quantity;
+              $subtotal += $total;
+            ?>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="<?php echo $product['image']; ?>"
+                    width="50" class="rounded me-2 shadow"
+                    alt="<?php echo $product['name']; ?>"
+                  >
+                  <span><?php echo $product["name"]; ?></span>
+                </div>
+              </td>
+
+              <td>₦<?php echo number_format($product['price']); ?></td>
+
+              <td>
+                <input type="number" class="form-control quantity-input" 
+                  value="<?php echo $quantity; ?>"
+                  data-id="<?php echo $product['id']; ?>"
+                  min="1"
+                >
+              </td>
+              <td>₦<?php echo number_format($total); ?></td>
+              <td>
+                <button class="btn btn-sm btn-danger remove-btn" 
+                  data-id="<?php echo $product['id']; ?>">
+                  Remove
+                </button>
+              </td>
+            </tr>
+
+            <?php endforeach; ?>
+          </tbody>
         </table>
       </div>
     </section>
@@ -126,7 +179,7 @@
           </p>
           <p class="d-flex justify-content-between fs-5">
             <span>Total</span>
-            <strong>N<?php echo $total; ?></strong>
+            <strong>N<?php echo number_format($total); ?></strong>
           </p>
           <a class="btn btn-success w-100 mt-2 check_out_pro">
             Proceed To Checkout
@@ -136,22 +189,29 @@
     </div>
     <script>
       $(document).ready(function(){
-        //remove item
+        // Remove item
         $(".remove-btn").click(function(){
-          var orderId = $(this).data("order-id");
+          var productId = $(this).data("id");
+
           if(confirm("Remove this item from cart?")){
-            $.post("cart_action.php",{action:"remove", order_id:orderId}, function(){
+            $.post("cart_action.php", {
+              action: "remove",
+              product_id: productId
+            }, function(){
               location.reload();
             });
           }
         });
-
-        // Upload quantity
+        // Update quantity
         $(".quantity-input").change(function(){
-          var orderId = $(this).data("order-id");
+          var productId = $(this).data("id");
           var qty = $(this).val();
           if(qty < 1) qty = 1;
-          $.post("cart_action.php", {action:"update", order_id:orderId, quantity:qty}, function(){
+          $.post("cart_action.php", {
+            action: "update",
+            product_id: productId,
+            quantity: qty
+          }, function(){
             location.reload();
           });
         });
