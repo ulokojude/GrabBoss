@@ -1,16 +1,23 @@
 <?php
-  session_start();
-  require( "config/db.php" );
+session_start();
+require("config/db.php");
 
-  include( "auth/root_auth_chk.php" );
+include("auth/root_auth_chk.php");
 
-  $user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'];
 
-  if (!empty($cart)) {
-    $ids = implode(',', array_keys($cart));
-    $stmt = $pdo->prepare( "SELECT * FROM products WHERE id IN ($ids)" );
-    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
+// ✅ Define cart
+$cart = $_SESSION['cart'] ?? [];
+
+$products = [];
+$subtotal = 0;
+
+if (!empty($cart)) {
+  $ids = implode(',', array_keys($cart));
+
+  $stmt = $pdo->query("SELECT * FROM products WHERE id IN ($ids)");
+  $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
   
 ?>
 <!DOCTYPE html>
