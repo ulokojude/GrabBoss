@@ -128,7 +128,7 @@
           <?php foreach ($relatedProducts as $item): ?>
             <div class="col-6 col-md-4 col-lg-3 mb-3">
               <div class="card h-100 shadow-sm">
-                <img src="<?php echo $item['image']; ?>"
+                <img src="../GrabBoss_admin/<?php echo $item['image']; ?>"
                   class="card-img-top"
                   style="height:180px; object-fit:cover;" 
                 >

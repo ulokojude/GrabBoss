@@ -9,14 +9,15 @@
 
   $btn_wrt = 'Complete Purchase';
 
-  //$total_price = $_SESSION[''];
+  $total_price = $_SESSION['subtotal'] ?? 0;
 
   if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $email = $_POST["email"];
-    if ($email) {
-      $btn_wrt = "order submited. redirecting....";
+    if (!empty($email)) {
+      $message = "Complete Purchase";
       $mess = "btn-sucess"; 
       header("Location: order_sub.php");
+      exit;
     }
   }
 
@@ -44,10 +45,11 @@
     <div class="container vh-100 d-flex align-items-center justify-content-center">
       <div class="card p-4 shadow-lg w-100" style="max-width: 400px;"> 
         <form action="checkout.php" method="POST">
-          <h4 class="text-center mb-3">GrabBoss</h4> 
+          <h4 class="text-center mb-3">GrabBoss</h4>
+          <?php $message = ''; ?>
           
           <div class="text-center text-muted mb-4">
-            Input card Details
+            <?php echo $total_price; ?>
           </div>
           <?php if (!empty($message)): ?>
             <div class="alert <?php echo $mess; ?>">
@@ -56,7 +58,7 @@
           <?php endif; ?>
           <div class="mb-3">
             <label for="" class="form-label text-muted">Email</label>
-            <input type="email" name="email" value="<?php echo $email; ?>" name="email" class="form-control" required>
+            <input type="email" name="email" value="<?php echo $email; ?>" class="form-control" required>
           </div>
           <div class="mb-3 card p-3">
             <div class="mb-3">
@@ -76,18 +78,18 @@
             <div class="d-flex mb-3 gap-2 justify-content-between">
               <div>
                 <label for="ed" class="form-label text-muted">Expiration date</label>
-                <input type="text" name="" id="ed" value="<?php ?>" class="form-control" maxlength="7" placeholder="MM / YY" id="ed">
+                <input type="text" name="expiry_date" id="ed" value="<?php ?>" class="form-control" maxlength="7" placeholder="MM / YY">
               </div>
               <div>
                 <label for="ed" class="form-label text-muted">Security code</label>
-                <input type="text" name="cvc" id="cvc" value="<?php ?>" maxlength="3" inputmode="numeric" placeholder="CVC" class="form-control" id="ed">
+                <input type="text" name="cvc" id="cvc" value="<?php ?>" maxlength="3" inputmode="numeric" placeholder="CVC" class="form-control">
               </div>
             </div>
           </div>
           
           <div class="mb-3">
             <!-- <button class="btn btn-secondary w-50 m-2">Cancle</button> -->
-            <button class="btn btn-danger w-100 m-2"><?php echo $btn_wrt; ?></button>
+            <button class="btn btn-danger w-100 m-2" type="submit"><?php echo $btn_wrt; ?></button>
           </div>
           
         </form>
