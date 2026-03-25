@@ -1,18 +1,16 @@
 <?php
   session_start();
   require("config/db.php");
-
   include("auth/root_auth_chk.php");
 
-    $user_id = $_SESSION['user_id'];
-    $cart = $_SESSION['cart'] ?? [];
+  $user_id = $_SESSION['user_id'];
+  $cart = $_SESSION['cart'] ?? [];
 
-
-    if (!empty($cart)) {
-      $ids = implode(',', array_keys($cart));
-      $stmt = $pdo->query( "SELECT * FROM products WHERE id IN ($ids)" );
-      $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+  if (!empty($cart)) {
+    $ids = implode(',', array_keys($cart));
+    $stmt = $pdo->query( "SELECT * FROM products WHERE id IN ($ids)" );
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 
   //$quantity = $cart[$product['id']];
   // $total = $product['price'] * $quantity;
@@ -20,13 +18,11 @@
 
   // ✅ Define cart
   $cart = $_SESSION['cart'] ?? [];
-
   $products = [];
   $subtotal = 0;
 
   if (!empty($cart)) {
     $ids = implode(',', array_keys($cart));
-
     $stmt = $pdo->query("SELECT * FROM products WHERE id IN ($ids)");
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
@@ -85,42 +81,6 @@
             <th>Total</th>
             <th></th>
           </thead>
-          <tbody>
-            <?php
-              foreach($products as $row) {
-                $quantity = $cart[$product['id']];
-                $total = $product['price'] * $quantity;
-                ?>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img src="<?php echo $product['images'] ?>"
-                        width="50px" class="rounded me-2 shadow"
-                        alt="<?php echo $product['name']; ?>"
-                      >
-                      <span><?php echo $product["name"]; ?></span>
-                    </div>
-                  </td>
-                  <td>N<?php echo $product['price']; ?></td>
-                  <td>
-                    <input type="number" class="form-control quantity-input" 
-                      value="<?php echo $product; ?>"
-                      data-order-id="<?php echo $row['id']; ?>"
-                    >
-                  </td>
-                  <td>
-                    N<?php echo $total; ?>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-danger remove-btn" data-order-id="<?php echo $row['id']; ?>">
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-                <?php
-              }
-            ?>
-          </tbody>
 
           <tbody>
             <?php foreach ($products as $product): 
@@ -145,7 +105,7 @@
                 <input type="number" class="form-control quantity-input" 
                   value="<?php echo $quantity; ?>"
                   data-id="<?php echo $product['id']; ?>"
-                  min="1"
+                  min="1" readonly
                 >
               </td>
               <td>₦<?php echo number_format($total); ?></td>
@@ -165,7 +125,6 @@
     <?php $count = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; ?>
     <div class="row justify-content-center p-4 mt-4">
       <div class="col-12 col-md-4">
-        <
         <div class="card p-3 shadow-sm">
           <h5>Cart Summary</h5>
           <hr>
@@ -179,7 +138,7 @@
           </p>
           <p class="d-flex justify-content-between fs-5">
             <span>Total</span>
-            <strong>N<?php echo number_format($total); ?></strong>
+            <strong>N<?php echo number_format($subtotal); ?></strong>
           </p>
           <a class="btn btn-success w-100 mt-2 check_out_pro">
             Proceed To Checkout

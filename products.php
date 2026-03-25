@@ -31,7 +31,7 @@
   $filteredProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   if (isset($_POST['add_to_cart'])) {
-    $productId = $_POST['productId'];
+    $productId = $_POST['product_id'];
 
     // Initialise cart if not exist
     if (!isset($_SESSION['cart'])) {
@@ -45,6 +45,9 @@
       $_SESSION['cart'][$productId] = 1;
     }
     echo "<script>alert('product added to cart');</script>";
+
+    header("Location: products.php");
+    exit;
   }
 
 ?>
@@ -63,7 +66,6 @@
     <link rel="stylesheet" href="styles/grabboss-header.css">
     <link rel="stylesheet" href="styles/grabboss.css">
     <link rel="stylesheet" href="styles/products.css">
-    link
     <!-- <link rel="stylesheet" href="/styles/trans.css" -->
 
   </head>
@@ -131,9 +133,9 @@
               <img src="images/icons/checkmark.png">
               Added
             </div>
-           <form method="POST">
+           <form method="POST" action="products.php">
               <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-              <button class="btn btn-primary me-2" type="submit">
+              <button class="btn btn-primary me-2" name="add_to_cart" type="submit">
                 Add to Cart
               </button>
           </form>
@@ -144,6 +146,7 @@
     </div>
     <?php //include("includes/footer.php"); ?>
     <script src="auth/scripts/products.js"></script>
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const searchInput = document.querySelector('#searchInput');
