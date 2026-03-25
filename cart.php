@@ -5,13 +5,17 @@
   include( "auth/root_auth_chk.php" );
 
   $user_id = $_SESSION['user_id'];
+  $cart = $_SESSION['cart'] ?? [];
+
 
   if (!empty($cart)) {
     $ids = implode(',', array_keys($cart));
-    $stmt = $pdo->prepare( "SELECT * FROM products WHERE id IN ($ids)" );
+    $stmt = $pdo->query( "SELECT * FROM products WHERE id IN ($ids)" );
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
-  
+
+  //$quantity = $cart[$product['id']];
+ // $total = $product['price'] * $quantity;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +72,7 @@
           </thead>
           <tbody>
             <?php
-              foreach($orders as $row) {
+              foreach($products as $row) {
                 $quantity = $cart[$product['id']];
                 $total = $product['price'] * $quantity;
                 ?>
@@ -108,6 +112,7 @@
     <?php $count = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; ?>
     <div class="row justify-content-center p-4 mt-4">
       <div class="col-12 col-md-4">
+        <
         <div class="card p-3 shadow-sm">
           <h5>Cart Summary</h5>
           <hr>
@@ -121,7 +126,7 @@
           </p>
           <p class="d-flex justify-content-between fs-5">
             <span>Total</span>
-            <strong>N<?php echo number_format($subtotal); ?></strong>
+            <strong>N<?php echo $total; ?></strong>
           </p>
           <a class="btn btn-success w-100 mt-2 check_out_pro">
             Proceed To Checkout
