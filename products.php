@@ -146,7 +146,7 @@
                 src="../GrabBoss_admin/<?php echo $product['image']; ?>"
               >
             </div> 
-            <div class="product-name limit-text-to-2-lines" style="color: #333;">
+            <div style="font-weight:bolder; color:#0d6efd" class="product-name limit-text-to-2-lines" style="color: #333;">
               <?php echo htmlspecialchars($product['name']); ?>
             </div>
             <div class="product-rating-container">

@@ -24,7 +24,6 @@
           <div class="alert <?php echo $mess; ?>"><?php echo $message; ?></div>
         <?php endif; ?>
         <form action="register.php" method="POST">
-          <input type="hidden" name="token" value="<?php echo $_SESSION[ 'token' ]; ?>">
           <div class="row">
             <div class="col-12 col-md-6 p-2">
               <div class="mb-3">

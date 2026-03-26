@@ -15,8 +15,7 @@
   //$quantity = $cart[$product['id']];
   // $total = $product['price'] * $quantity;
   $user_id = $_SESSION['user_id'];
-
-  // ✅ Define cart
+  
   $cart = $_SESSION['cart'] ?? [];
   $products = [];
   $subtotal = 0;
