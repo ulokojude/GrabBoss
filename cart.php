@@ -35,6 +35,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <title>Cart | GrabBoss</title>
+
+    <style>
+      .form-control:focus {
+        box-shadow: none;
+        border-color: skyblue;
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
@@ -91,7 +98,7 @@
             <tr>
               <td>
                 <div class="d-flex align-items-center">
-                  <img src="<?php echo $product['image']; ?>"
+                  <img src="../GrabBoss_admin/<?php echo $product['image']; ?>"
                     width="50" class="rounded me-2 shadow"
                     alt="<?php echo $product['name']; ?>"
                   >
@@ -140,9 +147,15 @@
             <span>Total</span>
             <strong>N<?php echo number_format($subtotal); ?></strong>
           </p>
-          <a class="btn btn-success w-100 mt-2 check_out_pro">
-            Proceed To Checkout
-          </a>
+          <?php if ($count): ?>
+            <a href="checkout.php" class="btn btn-success w-100 mt-2 check_out_pro">
+              Proceed To Checkout
+            </a>
+          <?php else: ?>
+            <button class="btn btn-secondary w-100 mt-2" disabled>
+              Cart is Empty
+            </button>
+          <?php endif; ?>
         </div>
       </div>
     </div>

@@ -2,6 +2,13 @@
   session_start();
   include( "includes/header.php" );
   include( "auth/root_auth_chk.php" );
+  include_once ("config/db.php");
+
+  $cart = $_SESSION['cart'] ?? [];
+
+  if (empty($cart)) {
+    header("Location: products.php");
+  }
 
   $email = '';
   $card_num = '';
@@ -9,14 +16,29 @@
 
   $btn_wrt = 'Complete Purchase';
 
+  $cart = $_SESSION['cart'] ?? [];
+  $subtotal = 0;
+
+  if (!empty($cart)) {
+    $ids = implode(',', array_keys($cart));
+    $stmt = $pdo->query('SELECT * FROM products WHERE id IN (id)');
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($products as $product) {
+      $quantity = $cart[$product['id']];
+      $subtotal += $product['price'] * $quantity;
+    }
+  }
+
   $total_price = $_SESSION['subtotal'] ?? 0;
 
   if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $email = $_POST["email"];
     if (!empty($email)) {
-      $message = "Complete Purchase";
-      $mess = "btn-sucess"; 
-      header("Location: order_sub.php");
+      // $message = "Complete Purchase";
+      // $mess = "btn-sucess"; 
+      unset($_SESSION['cart']);
+      header("Location: products.php");
       exit;
     }
   }
@@ -48,8 +70,8 @@
           <h4 class="text-center mb-3">GrabBoss</h4>
           <?php $message = ''; ?>
           
-          <div class="text-center text-muted mb-4">
-            <?php echo $total_price; ?>
+          <div class="text-center mb-3 text-muted mb-4">
+            <h5>Paying: <?php echo number_format($subtotal); ?></h5>
           </div>
           <?php if (!empty($message)): ?>
             <div class="alert <?php echo $mess; ?>">

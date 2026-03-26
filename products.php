@@ -29,10 +29,8 @@
   }
 
   $filteredProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
   if (isset($_POST['add_to_cart'])) {
     $productId = $_POST['product_id'];
-
     // Initialise cart if not exist
     if (!isset($_SESSION['cart'])) {
       $_SESSION['cart'] = [];
@@ -45,7 +43,6 @@
       $_SESSION['cart'][$productId] = 1;
     }
     echo "<script>alert('product added to cart');</script>";
-
     header("Location: products.php");
     exit;
   }
@@ -66,7 +63,6 @@
     <link rel="stylesheet" href="styles/grabboss-header.css">
     <link rel="stylesheet" href="styles/grabboss.css">
     <link rel="stylesheet" href="styles/products.css">
-    <!-- <link rel="stylesheet" href="/styles/trans.css" -->
     <style>
       .btn {
         display: inline-block;
@@ -93,6 +89,14 @@
 
       .btn-primary:focus {
         box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
+      }
+
+      .pr {
+        margin-right: 1rem !important;
+        margin-top: 0.5rem !important;
+        margin-bottom: 1rem !important;
+        font-weight: 700 !important;
+        color: #0d6efd !important;
       }
     </style>
   </head>
@@ -125,6 +129,12 @@
       </div>
     </div>
     <div class="main">
+
+    <?php if (isset($_GET['success'])): ?>
+      <div class="alert alert-danger text-center">
+        Order Placed Successfully!
+      </div>
+    <?php endif; ?>
       
       <div class="products-grid js-products-grid">
         <!-- catalogues goes here.. -->
@@ -149,17 +159,11 @@
                 <?php echo $product['rating']; ?>
               </div>
             </div>
-            <div class="product-price">
-              $<?php echo number_format($product['price'], 2); ?>
-            </div>
-            <a class="view-details-link" href="product-details.php?id=<?php echo $product['id']; ?>">
-              View details
-            </a>
-            <div class="product-spacer"></div>
-            <div class="added-to-cart">
-              <img src="images/icons/checkmark.png">
-              Added
-            </div>
+
+            <p class=" pr">
+              &#8358; <?php echo number_format($product['price']); ?>
+            </p>
+
            <form method="POST" action="products.php">
               <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
               <button class="btn btn-primary" name="add_to_cart" type="submit">
