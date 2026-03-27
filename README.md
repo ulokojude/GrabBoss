@@ -34,23 +34,6 @@ Backend: PHP (PDO)
 
 Database: MySQL
 
-AJAX: Fetch API
-
-
-
----
-
-📂 Project Structure
-
-/project-root
-│
-├── /assets        # CSS, JS, images
-├── /include       # Database connection (db.php)
-├── /pages         # Application pages
-├── /actions       # Backend logic (disable_user.php, etc.)
-├── index.php      # Homepage
-└── README.md
-
 
 ---
 
@@ -60,7 +43,7 @@ AJAX: Fetch API
 
 
 
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/ulokojude/GrabBoss.git
 
 2. Move the project to your server directory:
 
@@ -110,31 +93,6 @@ Password hashing (password_hash)
 
 CSRF protection (recommended)
 
-Input validation
-
-
-
----
-
-⚡ AJAX Example
-
-fetch('disable_user.php', {
-    method: 'POST',
-    body: new URLSearchParams({ id: userId })
-})
-.then(res => res.text())
-.then(data => console.log(data));
-
-
----
-
-📸 Screenshots
-
-Add screenshots of your UI here
-
-
----
-
 📌 Future Improvements
 
 🧾 Order management system
@@ -150,12 +108,9 @@ Add screenshots of your UI here
 ---
 
 🤝 Contributing
-
 Contributions are welcome!
 
 1. Fork the project
-
-
 2. Create your feature branch
 
 
@@ -166,24 +121,3 @@ Contributions are welcome!
 
 
 5. Open a Pull Request
-
-
-
-
----
-
-📄 License
-
-This project is open-source and available under the MIT License.
-
-
----
-
-👨‍💻 Author
-
-Jude Uloko
-
-
----
-
-🔥 Built with passion while learning and leveling up in web development.
