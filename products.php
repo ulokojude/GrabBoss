@@ -7,7 +7,7 @@
   include( "auth/root_auth_chk.php" );
 
   $search = isset($_GET['search']) ? trim($_GET['search']) : '';
-
+  
   if ($search !== '') {
     $stmt = $pdo->prepare("
         SELECT DISTINCT p.* 
@@ -24,7 +24,7 @@
       'search' => "%$search%"
     ]);
   } else {
-    $stmt = $pdo->prepare("SELECT * FROM products ORDER BY id DESC");
+    $stmt = $pdo->prepare( "SELECT * FROM products ORDER BY id DESC" );
     $stmt->execute();
   }
 
@@ -130,11 +130,11 @@
     </div>
     <div class="main">
 
-    <?php if (isset($_GET['success'])): ?>
-      <div class="alert alert-danger text-center">
-        Order Placed Successfully!
-      </div>
-    <?php endif; ?>
+      <?php if (isset($_GET['success'])): ?>
+        <div class="alert alert-danger text-center">
+          Order Placed Successfully!
+        </div>
+      <?php endif; ?>
       
       <div class="products-grid js-products-grid">
         <!-- catalogues goes here.. -->
@@ -169,7 +169,7 @@
               <button class="btn btn-primary" name="add_to_cart" type="submit">
                 Add to Cart
               </button>
-          </form>
+            </form>
           </div>
         <?php endforeach; ?>
 
