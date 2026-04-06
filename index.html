@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>IgnitePulse</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet" >
     <style>
       .hero {
         background: url('images/hero.jpeg') center/cover no-repeat;
@@ -20,8 +21,12 @@
         border-radius: 10px;
       }
       .category-card img {
-        height: 200px;
+        height: 250px;
         object-fit: cover;
+        border-radius: 15px;
+      }
+      .category-card {
+        padding: 4px;
       }
       .footer {
         background: #0d1b2a;
@@ -34,17 +39,19 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
       <div class="container">
-        <a class="navbar-brand fw-bold" href="#">IgnitePulse</a>
+        <a class="navbar-brand fw-bold" href="#">GrabBoss</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="nav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+            <!-- <li class="nav-item"><a class="nav-link" href="g_products.html">Shop</a></li> -->
+            <li class="nav-item"><a class="nav-link" href="#">Cart(0)</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Fashion</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Electronics</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+            <!-- <li class="nav-item"><a class="nav-link" href="#">Blog</a></li> -->
+            <div class=""></div>
           </ul>
         </div>
       </div>
@@ -55,7 +62,7 @@
         <div class="overlay col-lg-6">
           <h1 class="display-4 fw-bold">Elevate Your Lifestyle</h1>
           <p>Discover premium fashion, cutting-edge electronics, and stunning home goods.</p>
-          <a href="#" class="btn btn-warning me-2">Shop Now</a>
+          <a href="g_products.html" class="btn btn-warning me-2">Shop Now</a>
           <a href="#" class="btn btn-outline-light">Learn More</a>
         </div>
       </div>
@@ -75,59 +82,136 @@
     <section class="py-5">
       <div class="container">
         <h2 class="text-center mb-4">Shop by Category</h2>
-        <div class="row g-4">
-          <div class="col-md-4">
-            <div class="card category-card">
-              <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47" class="card-img-top">
-              <div class="card-body">
-                <h5>Fashion</h5>
-              </div>
+
+        <div class="products-grid js-products-grid justify-content-between">
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
             </div>
+            <div class="product-spacer"></div>
           </div>
-          <div class="col-md-4">
-            <div class="card category-card">
-              <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5" class="card-img-top">
-              <div class="card-body">
-                <h5>Electronics</h5>
-              </div>
+
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
             </div>
+            <div class="product-spacer"></div>
           </div>
-          <div class="col-md-4">
-            <div class="card category-card">
-              <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85" class="card-img-top">
-              <div class="card-body">
-                <h5>Home & Living</h5>
-              </div>
+
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
             </div>
+            <div class="product-spacer"></div>
+          </div>
+
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
+            </div>
+            <div class="product-spacer"></div>
+          </div>
+
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
+            </div>
+            <div class="product-spacer"></div>
+          </div>
+
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
+            </div>
+            <div class="product-spacer"></div>
           </div>
         </div>
       </div>
     </section>
     <!-- Products -->
-    <section class="py-5 bg-light">
+    <section class="py-5">
       <div class="container">
-        <h2 class="mb-4">Featured Products</h2>
-        <div class="row g-4">
-          <div class="col-sm-6 col-lg-3">
-            <div class="card">
-              <img src="https://images.unsplash.com/photo-1518444065439-e933c06ce9cd" class="card-img-top">
-              <div class="card-body">
-                <h6>Wireless Headphones</h6>
-                <p class="fw-bold">$299</p>
-                <button class="btn btn-primary w-100">Add to Cart</button>
-              </div>
+
+        <h2 class="mb-4 text-center">Featured Products</h2>
+        <div class="products-grid justify-content-between">
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
             </div>
+            <div class="product-spacer"></div>
           </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="card">
-              <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47" class="card-img-top">
-              <div class="card-body">
-                <h6>Leather Jacket</h6>
-                <p class="fw-bold">$449</p>
-                <button class="btn btn-primary w-100">Add to Cart</button>
-              </div>
+
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
             </div>
+            <div class="product-spacer"></div>
           </div>
+
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
+            </div>
+            <div class="product-spacer"></div>
+          </div>
+
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
+            </div>
+            <div class="product-spacer"></div>
+          </div>
+
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
+            </div>
+            <div class="product-spacer"></div>
+          </div>
+
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
+            </div> 
+            <div class="product-price">
+              554345
+            </div>
+            <div class="product-spacer"></div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -149,9 +233,9 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="container text-center">
-        <p>&copy; 2025 IgnitePulse</p>
+        <p>&copy; 2026 GrabBoss</p>
       </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -1,0 +1,214 @@
+ <!DOCTYPE html>
+ <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <title>Checkout</title>
+    <style>
+      body {
+        background: white;
+        margin-top: 24px;
+      }
+      .checkout-wrapper {
+        background: #fff;
+        border-radius: 20px;
+        padding: 30px;
+      }
+      .section-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: black;
+      }
+      .order-card img {
+        width: 70px;
+      }
+      .btn-brown {
+        background: #a6783a;
+        color: #fff;
+      }
+      .btn-brown:hover {
+        opacity: 0.9;
+      }
+      .form-control:focus {
+        outline: none;
+      }
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">GrabBoss</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="navbar-nav ms-auto">
+            <!-- <li class="nav-item"><a class="nav-link active" href="#">Shop</a></li> -->
+            <li class="nav-item" id=""><a class="nav-link" href="#">Fashion</a></li>
+            <li class="nav-item" id=""><a class="nav-link" href="#">Electronics</a></li>
+            <li class="nav-item" id=""><a class="nav-link" href="#">Home</a></li>
+            <li class="nav-item" id=""><a class="nav-link" href="#">Blog</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container py-5">
+      <!-- <h2 class="text-center text-dark mb-4">CHECKOUT</h2> -->
+      <div class="d-flex col-2 justify-content-between">
+        <a href="g_products.html" class="text-muted">Home</a>
+        &gt;
+        <a href="cart.html" class="text-muted">Cart</a>
+        &gt;
+        <a href="#" class=" text-dark fw-bold">Checkout</a>
+      </div>
+      <hr class="border border-dark border-2">
+      <!-- <div class="checkout-wrapper shadow-lg"> -->
+        <div class="row">
+          <!-- LEFT SIDE -->
+          <div class="col-lg">
+            <h5 class="section-title">Contct Information</h5>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6"><input type="text" class="form-control" placeholder="Fist name"></div>
+              <div class="col-md-6"><input type="text" class="form-control" placeholder="Last name"></div>
+              <div class="col-md-6"><input type="email" class="form-control" placeholder="Email"></div>
+              <div class="col-md-6"><input type="tel" class="form-control" placeholder="Phone"></div>
+            </div>
+
+            <h5 class="section-title">Delivery Information</h5>
+            <div class="form-check mb-2">
+              <input type="radio" class="form-check-input" name="delivery" checked>
+              <label for="form-check-label">Standard delivery (5-6 days) FREE</label>
+            </div>
+            <div class="form-check mb-4">
+              <input type="radio" class="form-check-input" name="delivery">
+              <label for="" class="form-check-label">Express delivery (1-2 days) $10</label>
+            </div>
+
+            <h5 class="section-title">Shiping Information</h5>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6"><input type="" class="form-control" placeholder="Country"></div>
+              <div class="col-md-6"><input type="" class="form-control" placeholder="City"></div>
+              <div class="col-md-6"><input type="" class="form-control" placeholder="Address"></div>
+              <div class="col-md-6"><input type="" class="form-control" placeholder="Postal code"></div>
+            </div>
+
+            <h5 class="section-title">Payment Method</h5>
+            <div class="d-flex gap-2">
+              <div class="form-check mb-2">
+                <input type="radio" class="form-check-input" name="payment" checked>
+                <label for="form-check-input">Visa</label>
+              </div>
+              <div class="form-check mb-2">
+                <input type="radio" class="form-check-input" name="payment" checked>
+                <label for="form-check-label">Mastercard</label>
+              </div>
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6"><input maxlength="22" id="cn" type="" class="form-control" placeholder="card number"></div>
+              <div class="col-md-6"><input type="" class="form-control" placeholder="Cardholder name"></div>
+              <div class="col-md-6"><input id="ed" maxlength="7" class="form-control" placeholder="Expiry (MM/YY)"></div>
+              <div class="col-md-6"><input id="cvv" maxlength="3" class="form-control" placeholder="CVV"></div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT SIDE -->
+          <div class="col-lg-5">
+            <h5 class="section-title">Order Summary</h5>
+            <hr>
+
+            <div class="d-flex align-items-center mb-3 order-card">
+              <img src="/images/hero.jpeg" class="me-3" alt="">
+              <div class="flex-group-1">
+                <p class="mb-1 h6">Jacket</p>
+                <small>$23.99</small>
+              </div>
+            </div>
+            <hr>
+            <div class="d-flex align-items-center mb-3 order-card">
+              <img src="/images/hero.jpeg" class="me-3" alt="">
+              <div class="flex-group-1">
+                <p class="mb-1 h6">Jacket</p>
+                <small>$23.99</small>
+              </div>
+              <!-- <img src="/images/products/backpack.jpg" class="me-3" alt=""> -->
+            </div>
+            <hr>
+            <div class="d-flex align-items-center mb-3 order-card">
+              <img src="/images/hero.jpeg" class="me-3" alt="">
+              <div class="flex-group-1">
+                <p class="mb-1 h6 h6">Jacket</p>
+                <small>$23.99</small>
+              </div>
+            </div>
+            <hr>
+            <div class="d-flex align-items-center mb-3 order-card">
+              <img src="/images/hero.jpeg" class="me-3" alt="">
+              <div class="flex-group-1">
+                <p class="mb-1 h6">Jacket</p>
+                <small>$23.99</small>
+              </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between mb-3 h6">
+              <span>Subtotal</span><span>$48.97</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3 h6">
+              <span>Delivery cost</span><span>Free</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3 h6">
+              <span>Discount</span><span>$48.97</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3 h6">
+              <span>Total to pay</span><span>$48.97</span>
+            </div>
+            <div class="gap-2 d-flex">
+              <button class="btn btn-secondary w-50">
+                <a href="g_products.html" class="text-decoration-none text-white">Cancel</a>
+              </button>
+              <button class="btn-brown btn w-50">
+                <a href="#" class="text-decoration-none text-white">Pay Now</a>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- <hr> -->
+      <!-- </div> -->
+    </div>
+    <hr>
+
+    <script>
+      document.getElementById('cn').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 4 && value.length <= 8) {
+          value = value.slice(0, 4) + '  ' + value.slice(4);
+        } else if (value.length > 8 && value.length <= 12) {
+          value = value.slice(0, 4) + '  ' + value.slice(4, 8) + ' ' + value.slice(8);
+        } else if (value.length > 12) {
+          value = value.slice(0, 4) + '  ' + value.slice(4, 8) + '  ' + value.slice(8, 12) + '  ' + value.slice(12);
+        }
+        e.target.value = value;
+      });
+
+      document.getElementById('ed').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length === 1 && parseInt(value) > 1) {
+          value = '0' + value;
+        }
+        if (value.length > 2 && value.length <= 4) {
+          let month = parseInt(value.slice(0, 2));
+          if (month > 12) value = '12' + value.slice(2);
+          value = value.slice(0, 2) + ' / ' + value.slice(2);
+        }
+        e.target.value = value;
+      });
+
+      document.getElementById('cvc').addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/\D/g, '');
+      });
+
+    </script>
+  </body>
+ </html>
