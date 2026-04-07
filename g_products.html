@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/index.css">
     <title>Document</title>
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
       <div class="container">
         <a class="navbar-brand fw-bold" href="index.html">GrabBoss</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
@@ -26,7 +27,19 @@
       </div>
     </nav>
 
-    <div class="main"></div>
-    <script src="/products.js"></script>
+    <div class="main">
+      <div class="products-grid js-products-grid"></div>
+    </div>
+    <style>
+      .product-container {
+        margin-bottom: 9px;
+        margin-right: 9px;
+      }
+
+      body {
+        padding-top: 70px;
+      }
+    </style>
+    <script type="module" src="products.js"></script>
   </body>
 </html>
