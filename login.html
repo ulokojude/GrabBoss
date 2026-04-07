@@ -4,10 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <style>
+      body {
+        background: linear-gradient(135deg, #cfc8f5, #b8b3e6);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+
+      .left-side {
+        /* background: #d9f1f1; */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+      }
+
+      .form-control {
+        border-radius: 30px;
+        padding: 12px 20px;
+      }
+
+      .btn-orange {
+        background: #ff6b4a;
+        border-radius: 30px;
+        color: white;
+        padding: 12px;
+      }
+
+      .btn-orange:hover {
+        background: #e85a3c;
+      }
+
+      .social-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ddd;
+        margin-right: 10px;
+      }
+
+      .shadow-lg {
+        padding: 24px;
+      }
+    </style>
     <title>Document</title>
   </head>
   <body>
-    
+    <div class="container vh-100 d-flex align-items-center justify-content-center">
+      <div class="card p-4 shadow-lg w-100 rounded-3" style="max-width: 400px;">
+        <!-- <div class="card-container row container"> -->
+          <!-- LEFT -->
+          <!-- RIGHT -->
+          <!-- <div class="col-md-5 left-side"> -->
+            <h4 class="mb-3">GrabBoss</h4>
+            <!-- <p class="text-muted">Not a member yet? <a href="#">Register now</a></p> -->
+
+            <form action="">
+              <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Email or username">
+              </div>
+
+
+              <div class="mb-3">
+                <input type="password" class="form-control" placeholder="password">
+              </div>
+              
+              <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input">
+                <label for="" class="form-check-label">Keep me logged in</label>
+              </div>
+
+              <button class="btn btn-orange w-100 mb-3">Login</button>
+
+              <p class="text-muted text-center"><a href="#">Create an account</a></p>
+
+              <!-- <div class="d-flex">
+                <div class="social-btn">G</div>
+                <div class="social-btn"></div>
+                <div class="social-btn">f</div>
+                <div class="social-btn">X</div>
+              </div> -->
+            </form>
+          <!-- </div> -->
+        <!-- </div> -->
+      </div>
+    </div>
     <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
   </body>
 </html>

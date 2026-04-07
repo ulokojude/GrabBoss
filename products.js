@@ -1,12 +1,18 @@
+import { products } from "./data";
 
-`<div class="product-container">
-  <div class="product-image-container">
-    <img class="product-image" alt="" src="/images/products/bathroom-rug.jpg">
-  </div> 
-  <div class="product-price">
-    ${p_name}
-  </div>
-  <div class="product-spacer"></div>
-</div>`
+const container = document.getElementById("main");
 
-document.getElementById("").innerHTML()
+products.forEach(product => {
+  container.innerHTML += `
+    <div class="product-container">
+      <div class="product-image-container">
+        <img class="product-image" alt="" src="${product.image}">
+      </div>
+      <p>${product.price}</p> 
+      <div class="product-price">
+        ${product.name}
+      </div>
+      <div class="product-spacer"></div>
+    </div>`;
+});
+
