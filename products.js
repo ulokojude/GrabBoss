@@ -11,7 +11,7 @@ if (container) {
         <div class="product-image-container">
           <img class="product-image" alt="" src="${product.image}">
         </div> 
-        <div style="font-weight:bolder; color:#0d6efd" class="product-name limit-text-to-2-lines" style="color: #333;">
+        <div style="font-weight:bolder; color:#0d6efd" class="product-name limit-text-to-2-lines">
           ${product.name}
         </div>
         <div class="product-rating-container">
@@ -24,7 +24,7 @@ if (container) {
         </div>
         <p class=" pr"> &#8358; ${product.price}</p>
         <form>
-          <button class="btn btn-primary add-to-cart-btn" data-id="${product.id}">
+          <button type="button" class="btn btn-primary add-to-cart-btn" data-id="${product.id}">
             Add to Cart
           </button>
         </form>
@@ -61,7 +61,9 @@ function addToCart(productId) {
   // Save to local storage
   localStorage.setItem("cart", JSON.stringify(cart));
 
+  updateCartCount();
   console.log("cart updaed:", cart);
+
 }
 
 document.addEventListener("click", (Event) => {
@@ -78,3 +80,17 @@ function updateCartCount() {
 }
 
 updateCartCount();
+
+function clearCart() {
+  // whipe local storage
+  localStorage.removeItem("cart");
+
+  // reset local array
+  cart = [];
+
+  // update UI
+  updateCartCount();
+
+  console.log("cart has been emptied");
+
+}
